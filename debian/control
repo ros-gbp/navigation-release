@@ -1,0 +1,13 @@
+Source: ros-kinetic-costmap-2d
+Section: misc
+Priority: optional
+Maintainer: David V. Lu!! <davidvlu@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-catkin, ros-kinetic-cmake-modules, ros-kinetic-dynamic-reconfigure, ros-kinetic-geometry-msgs, ros-kinetic-laser-geometry, ros-kinetic-map-msgs, ros-kinetic-map-server, ros-kinetic-message-filters, ros-kinetic-message-generation, ros-kinetic-nav-msgs, ros-kinetic-pcl-conversions, ros-kinetic-pcl-ros, ros-kinetic-pluginlib, ros-kinetic-rosbag, ros-kinetic-roscpp, ros-kinetic-rostest, ros-kinetic-rosunit, ros-kinetic-sensor-msgs, ros-kinetic-std-msgs, ros-kinetic-tf, ros-kinetic-visualization-msgs, ros-kinetic-voxel-grid
+Homepage: http://wiki.ros.org/costmap_2d
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-costmap-2d
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-dynamic-reconfigure, ros-kinetic-geometry-msgs, ros-kinetic-laser-geometry, ros-kinetic-map-msgs, ros-kinetic-message-filters, ros-kinetic-message-runtime, ros-kinetic-nav-msgs, ros-kinetic-pcl-conversions, ros-kinetic-pcl-ros, ros-kinetic-pluginlib, ros-kinetic-rosconsole, ros-kinetic-roscpp, ros-kinetic-sensor-msgs, ros-kinetic-std-msgs, ros-kinetic-tf, ros-kinetic-visualization-msgs, ros-kinetic-voxel-grid
+Description: This package provides an implementation of a 2D costmap that takes in sensor data from the world, builds a 2D or 3D occupancy grid of the data (depending on whether a voxel based implementation is used), and inflates costs in a 2D costmap based on the occupancy grid and a user specified inflation radius.
+ This package also provides support for map_server based initialization of a costmap, rolling window based costmaps, and parameter based subscription to and configuration of sensor topics.
