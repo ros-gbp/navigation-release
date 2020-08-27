@@ -1,0 +1,157 @@
+ros-kinetic-clear-costmap-recovery (1.14.8-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 27 Aug 2020 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.14.7-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Mar 2020 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.14.6-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Mar 2020 05:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.14.5-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 15 Nov 2019 05:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.14.4-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 19 Jun 2018 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.14.3-1xenial) xenial; urgency=high
+
+  * Merge pull request #672 <https://github.com/ros-planning/navigation/issues/672> from ros-planning/email_update_kinetic
+    update maintainer email (kinetic)
+  * Merge pull request #648 <https://github.com/ros-planning/navigation/issues/648> from aaronhoy/kinetic_add_ahoy
+    Add myself as a maintainer.
+  * update to use non deprecated pluginlib macro (#630 <https://github.com/ros-planning/navigation/issues/630>)
+    * update to use non deprecated pluginlib macro
+    * multiline version as well
+  * Contributors: Aaron Hoy, Michael Ferguson, Mikael Arguedas
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 16 Mar 2018 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.14.2-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 14 Aug 2017 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.14.1-1xenial) xenial; urgency=high
+
+  * Fix CMakeLists + package.xmls (#548 <https://github.com/ros-planning/navigation/issues/548>)
+  * remove GCC warnings
+  * Contributors: Martin Günther, Vincent Rabaud
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 07 Aug 2017 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.14.0-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 20 May 2016 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.13.1-1xenial) xenial; urgency=high
+
+  * proper locking during costmap update
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 29 Oct 2015 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.13.0-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 17 Mar 2015 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.12.0-1xenial) xenial; urgency=high
+
+  * update maintainer email
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Feb 2015 05:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.11.15-1xenial) xenial; urgency=high
+
+  * Add ARCHIVE_DESTINATION for static builds
+  * Contributors: Gary Servin
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 03 Feb 2015 05:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.11.14-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 05 Dec 2014 05:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.11.13-1xenial) xenial; urgency=high
+
+  * Fix the build (layers library is exported by costmap_2d)
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 02 Oct 2014 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.11.12-1xenial) xenial; urgency=high
+
+  * Clarify debug messages
+  * Initial Clearing Costmap parameter change
+  * Contributors: David Lu!!, Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 01 Oct 2014 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.11.11-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 23 Jul 2014 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.11.10-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 25 Jun 2014 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.11.9-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Jun 2014 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.11.8-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.11.7-1xenial) xenial; urgency=high
+
+  * update build to find eigen using cmake_modules
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.11.5-1xenial) xenial; urgency=high
+
+  * Misc. other commits from Groovy Branch
+  * Change maintainer from Hersh to Lu
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 30 Jan 2014 05:00:00 -0000
+
+ros-kinetic-clear-costmap-recovery (1.11.4-1xenial) xenial; urgency=high
+
+  * Package URL Updates
+  * Fix bounds setting
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 27 Sep 2013 04:00:00 -0000
+
+
