@@ -1,0 +1,219 @@
+ros-melodic-move-base (1.16.7-1stretch) stretch; urgency=high
+
+  * move_base: Add options for make_plan service (#981 <https://github.com/ros-planning/navigation/issues/981>)
+    Adds the following two parameters for the ~make_plan service:
+    1. make_plan_clear_costmap
+    Whether or not to clear the global costmap on make_plan service call.
+    2. make_plan_add_unreachable_goal
+    Whether or not to add the original goal to the path if it is unreachable in the make_plan service call.
+  * Contributors: nxdefiant
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 27 Aug 2020 04:00:00 -0000
+
+ros-melodic-move-base (1.16.6-1stretch) stretch; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 18 Mar 2020 04:00:00 -0000
+
+ros-melodic-move-base (1.16.5-1stretch) stretch; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Sun, 15 Mar 2020 04:00:00 -0000
+
+ros-melodic-move-base (1.16.4-1stretch) stretch; urgency=high
+
+  * [Windows][melodic] Navigation (except for map_server and amcl) Windows build bring up (#851 <https://github.com/cobalt-robotics/navigation/issues/851>)
+  * Contributors: Sean Yen
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Mar 2020 05:00:00 -0000
+
+ros-melodic-move-base (1.16.3-1stretch) stretch; urgency=high
+
+  * Merge branch 'melodic-devel' into layer_clear_area-melodic
+  * Added publishZeroVelocity() before starting planner (#751 <https://github.com/ros-planning/navigation/issues/751>)
+    Edit for Issue #750 <https://github.com/ros-planning/navigation/issues/750>
+  * Merge pull request #831 <https://github.com/ros-planning/navigation/issues/831> from ros-planning/feature/remove_slashes
+    [melodic] Remove leading slashes from default frame_id parameters
+  * Remove leading slashes from default frame_id parameters
+  * Contributors: David V. Lu, Michael Ferguson, SUNIL SULANIA, Steven Macenski
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 15 Nov 2019 05:00:00 -0000
+
+ros-melodic-move-base (1.16.2-1stretch) stretch; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 31 Jul 2018 04:00:00 -0000
+
+ros-melodic-move-base (1.16.1-1stretch) stretch; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Sat, 28 Jul 2018 04:00:00 -0000
+
+ros-melodic-move-base (1.16.0-1stretch) stretch; urgency=high
+
+  * Switch to TF2 #755 <https://github.com/ros-planning/navigation/issues/755>
+  * Merge pull request #723 <https://github.com/ros-planning/navigation/issues/723> from moriarty/melodic-buildfarm-errors
+    Melodic buildfarm errors
+  * Merge pull request #719 <https://github.com/ros-planning/navigation/issues/719> from ros-planning/lunar_711
+    adding mutex locks to costmap clearing service
+  * Contributors: Alexander Moriarty, Michael Ferguson, Vincent Rabaud, stevemacenski
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 25 Jul 2018 04:00:00 -0000
+
+ros-melodic-move-base (1.15.2-1stretch) stretch; urgency=high
+
+  * Merge pull request #673 <https://github.com/ros-planning/navigation/issues/673> from ros-planning/email_update_lunar
+    update maintainer email (lunar)
+  * Merge pull request #649 <https://github.com/ros-planning/navigation/issues/649> from aaronhoy/lunar_add_ahoy
+    Add myself as a maintainer.
+  * Rebase PRs from Indigo/Kinetic (#637 <https://github.com/ros-planning/navigation/issues/637>)
+    * Respect planner_frequency intended behavior (#622 <https://github.com/ros-planning/navigation/issues/622>)
+    * Only do a getRobotPose when no start pose is given (#628 <https://github.com/ros-planning/navigation/issues/628>)
+    Omit the unnecessary call to getRobotPose when the start pose was
+    already given, so that move_base can also generate a path in
+    situations where getRobotPose would fail.
+    This is actually to work around an issue of getRobotPose randomly
+    failing.
+    * Update gradient_path.cpp (#576 <https://github.com/ros-planning/navigation/issues/576>)
+    * Update gradient_path.cpp
+    * Update navfn.cpp
+    * update to use non deprecated pluginlib macro (#630 <https://github.com/ros-planning/navigation/issues/630>)
+    * update to use non deprecated pluginlib macro
+    * multiline version as well
+    * Print SDL error on IMG_Load failure in server_map (#631 <https://github.com/ros-planning/navigation/issues/631>)
+  * Contributors: Aaron Hoy, David V. Lu!!, Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 22 Mar 2018 04:00:00 -0000
+
+ros-melodic-move-base (1.15.1-1stretch) stretch; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 14 Aug 2017 04:00:00 -0000
+
+ros-melodic-move-base (1.15.0-1stretch) stretch; urgency=high
+
+  * Add a max_planning_retries parameter to move_base [kinetic] (#539 <https://github.com/ros-planning/navigation/issues/539>)
+  * Fix for #517 <https://github.com/ros-planning/navigation/issues/517>: create a getRobotPose method on move_base instead of using that on the costmaps
+  * Fixed deadlock when changing global planner
+  * rebase fixups
+  * convert packages to format2
+  * Fix CMakeLists + package.xmls (#548 <https://github.com/ros-planning/navigation/issues/548>)
+  * Added deps to amcl costmap_2d move_base (#512 <https://github.com/ros-planning/navigation/issues/512>)
+  * Fix CMake warnings
+  * move_base: Add move_base_msgs to find_package.
+  * Contributors: Jorge Santos, Jorge Santos Simón, Maarten de Vries, Martin Günther, Mikael Arguedas, Vincent Rabaud, mryellow, ne0
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 07 Aug 2017 04:00:00 -0000
+
+ros-melodic-move-base (1.14.0-1stretch) stretch; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 20 May 2016 04:00:00 -0000
+
+ros-melodic-move-base (1.13.1-1stretch) stretch; urgency=high
+
+  * Removes installation of nonexistent directories
+  * use correct size for clearing window
+  * full name has been required for eons, this code just adds unneeded complexity
+  * remove ancient conversion scripts from v0.2 to v0.3
+  * proper locking during costmap update
+  * Contributors: Michael Ferguson, Thiago de Freitas Oliveira Araujo
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 29 Oct 2015 04:00:00 -0000
+
+ros-melodic-move-base (1.13.0-1stretch) stretch; urgency=high
+
+  * Fixing various memory freeing operations
+  * Contributors: Alex Bencz
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 17 Mar 2015 04:00:00 -0000
+
+ros-melodic-move-base (1.12.0-1stretch) stretch; urgency=high
+
+  * update maintainer email
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Feb 2015 05:00:00 -0000
+
+ros-melodic-move-base (1.11.15-1stretch) stretch; urgency=high
+
+  * Disable global planner when resetting state.
+  * Mark move_base headers for installation
+  * Add ARCHIVE DESTINATION for move_base
+  * Break infinite loop when tolerance 0 is used
+  * remove partial usage of <tab> in the code
+  * Contributors: Gary Servin, Michael Ferguson, ohendriks, v4hn
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 03 Feb 2015 05:00:00 -0000
+
+ros-melodic-move-base (1.11.14-1stretch) stretch; urgency=high
+
+  * use timer rather than rate for immediate wakeup
+  * adding lock to planner makePlan fail case
+  * Contributors: Michael Ferguson, phil0stine
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 05 Dec 2014 05:00:00 -0000
+
+ros-melodic-move-base (1.11.13-1stretch) stretch; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 02 Oct 2014 04:00:00 -0000
+
+ros-melodic-move-base (1.11.12-1stretch) stretch; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 01 Oct 2014 04:00:00 -0000
+
+ros-melodic-move-base (1.11.11-1stretch) stretch; urgency=high
+
+  * removes trailing spaces and empty lines
+  * Contributors: Enrique Fernández Perdomo
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 23 Jul 2014 04:00:00 -0000
+
+ros-melodic-move-base (1.11.10-1stretch) stretch; urgency=high
+
+  * Remove unnecessary colons
+  * move_base planService now searches out from desired goal
+  * Contributors: David Lu!!, Kaijen Hsiao
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 25 Jun 2014 04:00:00 -0000
+
+ros-melodic-move-base (1.11.9-1stretch) stretch; urgency=high
+
+  * uses ::hypot(x, y) instead of sqrt(x*x, y*y)
+  * Contributors: Enrique Fernández Perdomo
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Jun 2014 04:00:00 -0000
+
+ros-melodic-move-base (1.11.8-1stretch) stretch; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-melodic-move-base (1.11.7-1stretch) stretch; urgency=high
+
+  * update build to find eigen using cmake_modules
+  * Fix classloader warnings on exit of move_base
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-melodic-move-base (1.11.4-1stretch) stretch; urgency=high
+
+  * Package URL Updates
+  * Reintroduce ClearCostmaps Service
+  * Add dependencies to recovery behaviors.
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 27 Sep 2013 04:00:00 -0000
+
+
