@@ -14,11 +14,18 @@ find_package(SDL_image REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem)
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(YAMLCPP yaml-cpp REQUIRED)
-if(YAMLCPP_VERSION VERSION_GREATER "0.5.0")
+pkg_check_modules(YAMLCPP yaml-cpp QUIET)
+if(NOT YAMLCPP_FOUND)
+  find_package(yaml-cpp 0.6 REQUIRED)
+  set(YAMLCPP_INCLUDE_DIRS ${YAML_CPP_INCLUDE_DIR})
+  set(YAMLCPP_LIBRARIES ${YAML_CPP_LIBRARIES})
+  add_definitions(-DHAVE_YAMLCPP_GT_0_5_0)
+else()
+  if(YAMLCPP_VERSION VERSION_GREATER "0.5.0")
     add_definitions(-DHAVE_YAMLCPP_GT_0_5_0)
+  endif()
+  link_directories(${YAMLCPP_LIBRARY_DIRS})
 endif()
-link_directories(${YAMLCPP_LIBRARY_DIRS})
 
 catkin_package(
     INCLUDE_DIRS
@@ -77,7 +84,8 @@ endfunction()
 if(CATKIN_ENABLE_TESTING)
   copy_test_data( FILES
       test/testmap.bmp
-      test/testmap.png )
+      test/testmap.png
+      test/spectrum.png )
   catkin_add_gtest(${PROJECT_NAME}_utest test/utest.cpp test/test_constants.cpp)
   target_link_libraries(${PROJECT_NAME}_utest
     map_server_image_loader
