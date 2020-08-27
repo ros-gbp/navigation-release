@@ -1,0 +1,13 @@
+Source: ros-melodic-nav-core
+Section: misc
+Priority: optional
+Maintainer: David V. Lu!! <davidvlu@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-catkin, ros-melodic-costmap-2d, ros-melodic-geometry-msgs, ros-melodic-std-msgs, ros-melodic-tf2-ros
+Homepage: http://wiki.ros.org/nav_core
+Standards-Version: 3.9.2
+
+Package: ros-melodic-nav-core
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-costmap-2d, ros-melodic-geometry-msgs, ros-melodic-std-msgs, ros-melodic-tf2-ros
+Description: This package provides common interfaces for navigation specific robot actions.
+ Currently, this package provides the BaseGlobalPlanner, BaseLocalPlanner, and RecoveryBehavior interfaces, which can be used to build actions that can easily swap their planner, local controller, or recovery behavior for new versions adhering to the same interface.
