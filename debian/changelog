@@ -1,0 +1,198 @@
+ros-melodic-clear-costmap-recovery (1.16.7-1bionic) bionic; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 27 Aug 2020 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.16.6-1bionic) bionic; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 18 Mar 2020 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.16.5-1bionic) bionic; urgency=high
+
+  * [melodic] updated install for better portability. (#973 <https://github.com/ros-planning/navigation/issues/973>)
+  * Contributors: Sean Yen
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Sun, 15 Mar 2020 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.16.4-1bionic) bionic; urgency=high
+
+  * [Windows][melodic] Navigation (except for map_server and amcl) Windows build bring up (#851 <https://github.com/cobalt-robotics/navigation/issues/851>)
+  * Contributors: Sean Yen
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Mar 2020 05:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.16.3-1bionic) bionic; urgency=high
+
+  * Merge pull request #877 <https://github.com/ros-planning/navigation/issues/877> from SteveMacenski/layer_clear_area-melodic
+    [melodic] moving clearing area method to costmap_layer so other applications can clear other types.
+  * Merge branch 'melodic-devel' into layer_clear_area-melodic
+  * Add force_updating and affected_maps parameters to tailor clear costmaps recovey (#838 <https://github.com/ros-planning/navigation/issues/838>)
+    behavior
+  * clear area in layer for melodic
+  * Contributors: Jorge Santos Simón, Michael Ferguson, Steven Macenski, stevemacenski
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 15 Nov 2019 05:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.16.2-1bionic) bionic; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 31 Jul 2018 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.16.1-1bionic) bionic; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Sat, 28 Jul 2018 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.16.0-1bionic) bionic; urgency=high
+
+  * Switch to TF2 #755 <https://github.com/ros-planning/navigation/issues/755>
+  * Contributors: Michael Ferguson, Vincent Rabaud
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 25 Jul 2018 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.15.2-1bionic) bionic; urgency=high
+
+  * Merge pull request #673 <https://github.com/ros-planning/navigation/issues/673> from ros-planning/email_update_lunar
+    update maintainer email (lunar)
+  * Merge pull request #649 <https://github.com/ros-planning/navigation/issues/649> from aaronhoy/lunar_add_ahoy
+    Add myself as a maintainer.
+  * Rebase PRs from Indigo/Kinetic (#637 <https://github.com/ros-planning/navigation/issues/637>)
+    * Respect planner_frequency intended behavior (#622 <https://github.com/ros-planning/navigation/issues/622>)
+    * Only do a getRobotPose when no start pose is given (#628 <https://github.com/ros-planning/navigation/issues/628>)
+    Omit the unnecessary call to getRobotPose when the start pose was
+    already given, so that move_base can also generate a path in
+    situations where getRobotPose would fail.
+    This is actually to work around an issue of getRobotPose randomly
+    failing.
+    * Update gradient_path.cpp (#576 <https://github.com/ros-planning/navigation/issues/576>)
+    * Update gradient_path.cpp
+    * Update navfn.cpp
+    * update to use non deprecated pluginlib macro (#630 <https://github.com/ros-planning/navigation/issues/630>)
+    * update to use non deprecated pluginlib macro
+    * multiline version as well
+    * Print SDL error on IMG_Load failure in server_map (#631 <https://github.com/ros-planning/navigation/issues/631>)
+  * Contributors: Aaron Hoy, David V. Lu!!, Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 22 Mar 2018 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.15.1-1bionic) bionic; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 14 Aug 2017 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.15.0-1bionic) bionic; urgency=high
+
+  * convert packages to format2
+  * Fix CMakeLists + package.xmls (#548 <https://github.com/ros-planning/navigation/issues/548>)
+  * import only PCL common
+  * remove GCC warnings
+  * Contributors: Martin Günther, Mikael Arguedas, Vincent Rabaud
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 07 Aug 2017 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.14.0-1bionic) bionic; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 20 May 2016 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.13.1-1bionic) bionic; urgency=high
+
+  * proper locking during costmap update
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 29 Oct 2015 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.13.0-1bionic) bionic; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 17 Mar 2015 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.12.0-1bionic) bionic; urgency=high
+
+  * update maintainer email
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Feb 2015 05:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.11.15-1bionic) bionic; urgency=high
+
+  * Add ARCHIVE_DESTINATION for static builds
+  * Contributors: Gary Servin
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 03 Feb 2015 05:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.11.14-1bionic) bionic; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 05 Dec 2014 05:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.11.13-1bionic) bionic; urgency=high
+
+  * Fix the build (layers library is exported by costmap_2d)
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 02 Oct 2014 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.11.12-1bionic) bionic; urgency=high
+
+  * Clarify debug messages
+  * Initial Clearing Costmap parameter change
+  * Contributors: David Lu!!, Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 01 Oct 2014 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.11.11-1bionic) bionic; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 23 Jul 2014 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.11.10-1bionic) bionic; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 25 Jun 2014 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.11.9-1bionic) bionic; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Jun 2014 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.11.8-1bionic) bionic; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.11.7-1bionic) bionic; urgency=high
+
+  * update build to find eigen using cmake_modules
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.11.5-1bionic) bionic; urgency=high
+
+  * Misc. other commits from Groovy Branch
+  * Change maintainer from Hersh to Lu
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 30 Jan 2014 05:00:00 -0000
+
+ros-melodic-clear-costmap-recovery (1.11.4-1bionic) bionic; urgency=high
+
+  * Package URL Updates
+  * Fix bounds setting
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 27 Sep 2013 04:00:00 -0000
+
+
