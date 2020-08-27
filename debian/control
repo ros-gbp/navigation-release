@@ -1,0 +1,12 @@
+Source: ros-melodic-navigation
+Section: misc
+Priority: optional
+Maintainer: Michael Ferguson <mfergs7@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-catkin
+Homepage: http://wiki.ros.org/navigation
+Standards-Version: 3.9.2
+
+Package: ros-melodic-navigation
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-amcl, ros-melodic-base-local-planner, ros-melodic-carrot-planner, ros-melodic-clear-costmap-recovery, ros-melodic-costmap-2d, ros-melodic-dwa-local-planner, ros-melodic-fake-localization, ros-melodic-global-planner, ros-melodic-map-server, ros-melodic-move-base, ros-melodic-move-base-msgs, ros-melodic-move-slow-and-clear, ros-melodic-nav-core, ros-melodic-navfn, ros-melodic-rotate-recovery, ros-melodic-voxel-grid
+Description: A 2D navigation stack that takes in information from odometry, sensor streams, and a goal pose and outputs safe velocity commands that are sent to a mobile base.
