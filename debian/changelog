@@ -1,0 +1,201 @@
+ros-kinetic-amcl (1.14.8-1xenial) xenial; urgency=high
+
+  * (AMCL) add resample limit cache [Kinetic] (#1013 <https://github.com/ros-planning/navigation/issues/1013>)
+  * Contributors: Matthijs van der Burgh
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 27 Aug 2020 04:00:00 -0000
+
+ros-kinetic-amcl (1.14.7-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Mar 2020 04:00:00 -0000
+
+ros-kinetic-amcl (1.14.6-1xenial) xenial; urgency=high
+
+  * Implement selective resampling (#921 <https://github.com/cobalt-robotics/navigation/issues/921>)
+  * Add CLI option to trigger global localization before processing a bagfile (#816 <https://github.com/cobalt-robotics/navigation/issues/816>)
+    Co-authored-by: alain-m <mailto:alain@savioke.com>
+  * Contributors: Adi Vardi, Stephan
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Mar 2020 05:00:00 -0000
+
+ros-kinetic-amcl (1.14.5-1xenial) xenial; urgency=high
+
+  * fix typo for parameter beam_skip_error_threshold but bandaged for other users in AMCL (#790 <https://github.com/ros-planning/navigation/issues/790>)
+    * fix typo but bandage for other users
+  * Contributors: Steven Macenski
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 15 Nov 2019 05:00:00 -0000
+
+ros-kinetic-amcl (1.14.4-1xenial) xenial; urgency=high
+
+  * Merge pull request #731 <https://github.com/ros-planning/navigation/issues/731> from maracuya-robotics/kinetic/amcl-dynamic-reconfigure
+    AMCL dynamic reconfigure: Extend parameter range
+  * In Addition to #696 <https://github.com/ros-planning/navigation/issues/696>, which checks the input arguments, this extends the
+    allowed parameter range in dynamic reconfigure. The description for
+    "save_pose_rate" says "-1.0 to disable" but allowed only positive values
+    previously.
+    Also increase maximum value for laser_max_beams for high performance
+    systems.
+  * Merge pull request #668 <https://github.com/ros-planning/navigation/issues/668> from B0gdar/kinetic-devel
+    Update laser_model_type enum on AMCL.cfg
+    Adding likelihood_field_prob laser model option on AMCL.cfg to be able to control dynamic parameters with this laser sensor model.
+  * Contributors: Michael Ferguson, Miguel Cordero, maracuya-robotics
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 19 Jun 2018 04:00:00 -0000
+
+ros-kinetic-amcl (1.14.3-1xenial) xenial; urgency=high
+
+  * Merge pull request #678 <https://github.com/ros-planning/navigation/issues/678> from SammysHP/patch-1
+    Fix minor typo
+  * Merge pull request #666 <https://github.com/ros-planning/navigation/issues/666> from SteveMacenski/kinetic-devel
+    removing recomputation of cluster stats causing assertion error (#634 <https://github.com/ros-planning/navigation/issues/634>)
+  * Merge pull request #672 <https://github.com/ros-planning/navigation/issues/672> from ros-planning/email_update_kinetic
+    update maintainer email (kinetic)
+  * Merge pull request #648 <https://github.com/ros-planning/navigation/issues/648> from aaronhoy/kinetic_add_ahoy
+    Add myself as a maintainer.
+  * Contributors: Aaron Hoy, Michael Ferguson, SammysHP, stevemacenski
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 16 Mar 2018 04:00:00 -0000
+
+ros-kinetic-amcl (1.14.2-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 14 Aug 2017 04:00:00 -0000
+
+ros-kinetic-amcl (1.14.1-1xenial) xenial; urgency=high
+
+  * Reference Issue #592 <https://github.com/ros-planning/navigation/issues/592> Added warning to AMCL when map is published on ... (#604 <https://github.com/ros-planning/navigation/issues/604>)
+  * recompute cluster stat when force_publication
+  * Fix CMakeLists + package.xmls (#548 <https://github.com/ros-planning/navigation/issues/548>)
+  * amcl: fix compilation with gcc v7
+  * Added deps to amcl costmap_2d move_base (#512 <https://github.com/ros-planning/navigation/issues/512>)
+  * fix order of parameters (closes #553 <https://github.com/ros-planning/navigation/issues/553>)
+  * Fix potential string overflow and resource leak
+  * Contributors: Dmitry Rozhkov, Laurent GEORGE, Martin Günther, Michael Ferguson, Peter Harliman Liem, mryellow, vik748
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 07 Aug 2017 04:00:00 -0000
+
+ros-kinetic-amcl (1.14.0-1xenial) xenial; urgency=high
+
+  * Allow AMCL to run from bag file to allow very fast testing.
+  * Fixes interpretation of a delayed initialpose message (see #424 <https://github.com/ros-planning/navigation/issues/424>).
+    The tf lookup as it was before this change was very likely to fail as
+    ros::Time::now() was used to look up a tf without waiting on the tf's
+    availability. Additionally, the computation of the "new pose" by
+    multiplying the delta that the robot moved from the initialpose's
+    timestamp to ros::Time::now() was wrong. That delta has to by multiplied
+    from the right to the "old pose".
+    This commit also changes the reference frame to look up this delta to be
+    the odom frame as this one is supposed to be smooth and therefore the
+    best reference to get relative robot motion in the robot (base link) frame.
+  * New unit test for proper interpretation of a delayed initialpose message.
+    Modifies the set_pose.py script to be able to send an initial pose with
+    a user defined time stamp at a user defined time. Adds a rostest to
+    exercise this new option.
+    This reveals the issues mentioned in #424 <https://github.com/ros-planning/navigation/issues/424> (the new test fails).
+  * Contributors: Derek King, Stephan Wirth
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 20 May 2016 04:00:00 -0000
+
+ros-kinetic-amcl (1.13.1-1xenial) xenial; urgency=high
+
+  * adds the set_map service to amcl
+  * fix pthread_mutex_lock on shutdown
+  * Contributors: Michael Ferguson, Stephan Wirth
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 29 Oct 2015 04:00:00 -0000
+
+ros-kinetic-amcl (1.13.0-1xenial) xenial; urgency=high
+
+  * amcl_node will now save latest pose on shutdown
+  * Contributors: Ian Danforth
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 17 Mar 2015 04:00:00 -0000
+
+ros-kinetic-amcl (1.12.0-1xenial) xenial; urgency=high
+
+  * update maintainer email
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Feb 2015 05:00:00 -0000
+
+ros-kinetic-amcl (1.11.15-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 03 Feb 2015 05:00:00 -0000
+
+ros-kinetic-amcl (1.11.14-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 05 Dec 2014 05:00:00 -0000
+
+ros-kinetic-amcl (1.11.13-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 02 Oct 2014 04:00:00 -0000
+
+ros-kinetic-amcl (1.11.12-1xenial) xenial; urgency=high
+
+  * Bug fix to remove particle weights being reset when motion model is updated
+  * Integrated new sensor model which calculates the observation likelihood in a probabilistic manner
+    Also includes the option to do beam-skipping (to better handle observations from dynamic obstacles)
+  * Pose pulled from parameter server when new map received
+  * Contributors: Steven Kordell, hes3pal
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 01 Oct 2014 04:00:00 -0000
+
+ros-kinetic-amcl (1.11.11-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 23 Jul 2014 04:00:00 -0000
+
+ros-kinetic-amcl (1.11.10-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 25 Jun 2014 04:00:00 -0000
+
+ros-kinetic-amcl (1.11.9-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Jun 2014 04:00:00 -0000
+
+ros-kinetic-amcl (1.11.8-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-kinetic-amcl (1.11.7-1xenial) xenial; urgency=high
+
+  * removes useless this->z_max = z_max assignment
+  * Fix warning string.
+  * Contributors: Jeremiah Via, enriquefernandez
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-kinetic-amcl (1.11.5-1xenial) xenial; urgency=high
+
+  * Fix for #160 <https://github.com/ros-planning/navigation/issues/160>
+  * Download test data from download.ros.org instead of willow
+  * Change maintainer from Hersh to Lu
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 30 Jan 2014 05:00:00 -0000
+
+ros-kinetic-amcl (1.11.4-1xenial) xenial; urgency=high
+
+  * Package URL Updates
+  * amcl_pose and particle cloud are now published latched
+  * Fixed or commented out failing amcl tests.
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 27 Sep 2013 04:00:00 -0000
+
+
