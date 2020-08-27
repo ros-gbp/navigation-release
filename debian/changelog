@@ -1,0 +1,176 @@
+ros-noetic-carrot-planner (1.17.1-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Thu, 27 Aug 2020 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.17.0-1buster) buster; urgency=high
+
+  * Merge pull request #982 <https://github.com/ros-planning/navigation/issues/982> from ros-planning/noetic_prep
+    Noetic Migration
+  * increase required cmake version
+  * Contributors: Michael Ferguson
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Thu, 02 Apr 2020 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.16.6-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Wed, 18 Mar 2020 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.16.5-1buster) buster; urgency=high
+
+  * [melodic] updated install for better portability. (#973 <https://github.com/ros-planning/navigation/issues/973>)
+  * Contributors: Sean Yen
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Sun, 15 Mar 2020 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.16.4-1buster) buster; urgency=high
+
+  * [Windows][melodic] Navigation (except for map_server and amcl) Windows build bring up (#851 <https://github.com/cobalt-robotics/navigation/issues/851>)
+  * Contributors: Sean Yen
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Wed, 04 Mar 2020 05:00:00 -0000
+
+ros-noetic-carrot-planner (1.16.3-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Fri, 15 Nov 2019 05:00:00 -0000
+
+ros-noetic-carrot-planner (1.16.2-1buster) buster; urgency=high
+
+  * Merge pull request #773 <https://github.com/ros-planning/navigation/issues/773> from ros-planning/packaging_fixes
+    packaging fixes
+  * fix depends of carrot_planner
+    * declare direct dependency on tf2
+    * alphabetize the depends in CMake
+  * Contributors: Michael Ferguson
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Tue, 31 Jul 2018 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.16.1-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Sat, 28 Jul 2018 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.16.0-1buster) buster; urgency=high
+
+  * Switch to TF2 #755 <https://github.com/ros-planning/navigation/issues/755>
+  * Contributors: Michael Ferguson, Rein Appeldoorn, Vincent Rabaud
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Wed, 25 Jul 2018 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.15.2-1buster) buster; urgency=high
+
+  * Merge pull request #673 <https://github.com/ros-planning/navigation/issues/673> from ros-planning/email_update_lunar
+    update maintainer email (lunar)
+  * Merge pull request #649 <https://github.com/ros-planning/navigation/issues/649> from aaronhoy/lunar_add_ahoy
+    Add myself as a maintainer.
+  * Contributors: Aaron Hoy, Michael Ferguson
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Thu, 22 Mar 2018 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.15.1-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Mon, 14 Aug 2017 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.15.0-1buster) buster; urgency=high
+
+  * convert packages to format2
+  * Fix CMakeLists + package.xmls (#548 <https://github.com/ros-planning/navigation/issues/548>)
+  * Contributors: Martin Günther, Mikael Arguedas, Vincent Rabaud
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Mon, 07 Aug 2017 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.14.0-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Fri, 20 May 2016 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.13.1-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Thu, 29 Oct 2015 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.13.0-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Tue, 17 Mar 2015 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.12.0-1buster) buster; urgency=high
+
+  * update maintainer email
+  * Contributors: Michael Ferguson
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Wed, 04 Feb 2015 05:00:00 -0000
+
+ros-noetic-carrot-planner (1.11.15-1buster) buster; urgency=high
+
+  * Add ARCHIVE_DESTINATION for static builds
+  * Contributors: Gary Servin
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Tue, 03 Feb 2015 05:00:00 -0000
+
+ros-noetic-carrot-planner (1.11.14-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Fri, 05 Dec 2014 05:00:00 -0000
+
+ros-noetic-carrot-planner (1.11.13-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Thu, 02 Oct 2014 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.11.12-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Wed, 01 Oct 2014 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.11.11-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Wed, 23 Jul 2014 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.11.10-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Wed, 25 Jun 2014 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.11.9-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Tue, 10 Jun 2014 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.11.8-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.11.7-1buster) buster; urgency=high
+
+
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-noetic-carrot-planner (1.11.4-1buster) buster; urgency=high
+
+  * Package URL Updates
+
+ -- Aaron Hoy <ahoy@fetchrobotics.com>  Fri, 27 Sep 2013 04:00:00 -0000
+
+
