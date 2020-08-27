@@ -1,0 +1,170 @@
+ros-kinetic-robot-pose-ekf (1.14.8-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 27 Aug 2020 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.14.7-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Mar 2020 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.14.6-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Mar 2020 05:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.14.5-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 15 Nov 2019 05:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.14.4-1xenial) xenial; urgency=high
+
+  * Merge pull request #713 <https://github.com/ros-planning/navigation/issues/713> from garethellis0/kinetic-devel
+    Added handling for NaN linear.z components of GPS in robot_pose_ekf
+    Added a check in odom_estimation_node.cpp that checks if linear.z
+    values in the GPS odom message are NaN (something common in such
+    messages), and if so, sets it to 0, and sets the corresponding variance
+    to a very high value so we ignore it.
+  * Contributors: Gareth Ellis, Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 19 Jun 2018 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.14.3-1xenial) xenial; urgency=high
+
+  * Merge pull request #672 <https://github.com/ros-planning/navigation/issues/672> from ros-planning/email_update_kinetic
+    update maintainer email (kinetic)
+  * Fixes #313 <https://github.com/ros-planning/navigation/issues/313> (kinetic) (#654 <https://github.com/ros-planning/navigation/issues/654>)
+  * Merge pull request #648 <https://github.com/ros-planning/navigation/issues/648> from aaronhoy/kinetic_add_ahoy
+    Add myself as a maintainer.
+  * added message_generation to build deps to prevent failing generation of GetStatus, MakeNavPlan and SetCostmap (#640 <https://github.com/ros-planning/navigation/issues/640>)
+  * Contributors: Aaron Hoy, David V. Lu!!, Leroy Rügemer, Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 16 Mar 2018 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.14.2-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 14 Aug 2017 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.14.1-1xenial) xenial; urgency=high
+
+  * Fix CMakeLists + package.xmls (#548 <https://github.com/ros-planning/navigation/issues/548>)
+  * Initialization of filter with GPS and odometry.
+  * Contributors: Martin Günther, Vincent Rabaud, azaganidis
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 07 Aug 2017 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.14.0-1xenial) xenial; urgency=high
+
+  * add to install script/ directory
+  * add execute bit to scripts/wtf.py
+  * robot_pose_ekf/src/odom_estimation_node.cpp: add to print gps sensor and used/not used in getStatus
+  * Contributors: Kei Okada
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 20 May 2016 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.13.1-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 29 Oct 2015 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.13.0-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 17 Mar 2015 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.12.0-1xenial) xenial; urgency=high
+
+  * update maintainer email
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Feb 2015 05:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.11.15-1xenial) xenial; urgency=high
+
+  * Fix bfl includes in robot_pose_ekf
+  * Contributors: Jochen Sprickerhof
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 03 Feb 2015 05:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.11.14-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 05 Dec 2014 05:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.11.13-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 02 Oct 2014 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.11.12-1xenial) xenial; urgency=high
+
+  * Fix EKF topic name so that it is unaffected by tf_prefix
+  * Install launch files, closes #249 <https://github.com/ros-planning/navigation/issues/249>
+  * Fixed hardcoded tf frames issue by fetching base_footprint_frame_ value from param server and using it in OdomEstimation filter
+  * Fixed hardcoded tf frames issue by adding variables for output and base_footprint frames along with mutator methods
+  * Contributors: Jochen Sprickerhof, Michael Ferguson, Murilo FM
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 01 Oct 2014 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.11.11-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 23 Jul 2014 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.11.10-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 25 Jun 2014 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.11.9-1xenial) xenial; urgency=high
+
+  * fix robot_pose_ekf test
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Jun 2014 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.11.8-1xenial) xenial; urgency=high
+
+  * fix build, was broken by #175 <https://github.com/ros-planning/navigation/issues/175>
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.11.7-1xenial) xenial; urgency=high
+
+  * Even longer Time limit for EKF Test
+  * make rostest in CMakeLists optional
+  * Contributors: David Lu!!, Lukas Bulwahn
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.11.5-1xenial) xenial; urgency=high
+
+  * check for CATKIN_ENABLE_TESTING
+  * Download test data from download.ros.org instead of willow
+  * Change maintainer from Hersh to Lu
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 30 Jan 2014 05:00:00 -0000
+
+ros-kinetic-robot-pose-ekf (1.11.4-1xenial) xenial; urgency=high
+
+  * Package URL Updates
+  * upgrade depracated download data calls.
+  * use tf_prefix to lookup and send transforms
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 27 Sep 2013 04:00:00 -0000
+
+
