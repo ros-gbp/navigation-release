@@ -43,6 +43,7 @@
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/Point.h>
 #include <nav_msgs/Path.h>
+#include <tf/transform_datatypes.h>
 #include <vector>
 #include <nav_core/base_global_planner.h>
 #include <nav_msgs/GetPlan.h>
@@ -176,10 +177,11 @@ class GlobalPlanner : public nav_core::BaseGlobalPlanner {
     private:
         void mapToWorld(double mx, double my, double& wx, double& wy);
         bool worldToMap(double wx, double wy, double& mx, double& my);
-        void clearRobotCell(const geometry_msgs::PoseStamped& global_pose, unsigned int mx, unsigned int my);
+        void clearRobotCell(const tf::Stamped<tf::Pose>& global_pose, unsigned int mx, unsigned int my);
         void publishPotential(float* potential);
 
         double planner_window_x_, planner_window_y_, default_tolerance_;
+        std::string tf_prefix_;
         boost::mutex mutex_;
         ros::ServiceServer make_plan_srv_;
 
@@ -199,8 +201,6 @@ class GlobalPlanner : public nav_core::BaseGlobalPlanner {
 
         bool old_navfn_behavior_;
         float convert_offset_;
-
-        bool outline_map_;
 
         dynamic_reconfigure::Server<global_planner::GlobalPlannerConfig> *dsrv_;
         void reconfigureCB(global_planner::GlobalPlannerConfig &config, uint32_t level);

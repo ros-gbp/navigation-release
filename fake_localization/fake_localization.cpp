@@ -106,7 +106,7 @@ class FakeOdomNode
       ros::NodeHandle private_nh("~");
       private_nh.param("odom_frame_id", odom_frame_id_, std::string("odom"));
       private_nh.param("base_frame_id", base_frame_id_, std::string("base_link")); 
-      private_nh.param("global_frame_id", global_frame_id_, std::string("map"));
+      private_nh.param("global_frame_id", global_frame_id_, std::string("/map"));
       private_nh.param("delta_x", delta_x_, 0.0);
       private_nh.param("delta_y", delta_y_, 0.0);
       private_nh.param("delta_yaw", delta_yaw_, 0.0);      
@@ -247,7 +247,7 @@ class FakeOdomNode
       geometry_msgs::TransformStamped baseInMap;
       try{
 	// just get the latest
-        baseInMap = m_tfBuffer->lookupTransform(base_frame_id_, global_frame_id_, msg->header.stamp);
+        baseInMap = m_tfBuffer->lookupTransform(base_frame_id_, global_frame_id_, ros::Time(0));
       } catch(tf2::TransformException){
         ROS_WARN("Failed to lookup transform!");
         return;

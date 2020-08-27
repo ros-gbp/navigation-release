@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 2.8.3)
 project(map_server)
 
 find_package(catkin REQUIRED
@@ -11,14 +11,12 @@ find_package(catkin REQUIRED
 find_package(Bullet REQUIRED)
 find_package(SDL REQUIRED)
 find_package(SDL_image REQUIRED)
-find_package(Boost REQUIRED COMPONENTS filesystem)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(YAMLCPP yaml-cpp REQUIRED)
 if(YAMLCPP_VERSION VERSION_GREATER "0.5.0")
     add_definitions(-DHAVE_YAMLCPP_GT_0_5_0)
 endif()
-link_directories(${YAMLCPP_LIBRARY_DIRS})
 
 catkin_package(
     INCLUDE_DIRS
@@ -38,7 +36,6 @@ include_directories(
     ${SDL_INCLUDE_DIR}
     ${SDL_IMAGE_INCLUDE_DIRS}
     ${YAMLCPP_INCLUDE_DIRS}
-    ${Boost_INCLUDE_DIRS}
 )
 
 add_library(map_server_image_loader src/image_loader.cpp)
@@ -88,7 +85,7 @@ if(CATKIN_ENABLE_TESTING)
   add_executable(rtest test/rtest.cpp test/test_constants.cpp)
   add_dependencies(rtest ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
   target_link_libraries( rtest
-      ${GTEST_LIBRARIES}
+      gtest
       ${catkin_LIBRARIES}
   )
 
@@ -98,13 +95,10 @@ if(CATKIN_ENABLE_TESTING)
 endif()
 
 ## Install executables and/or libraries
-install(TARGETS map_server-map_saver map_server
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
-
-install(TARGETS map_server_image_loader
+install(TARGETS map_server-map_saver map_server map_server_image_loader
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 ## Install project namespaced headers
 install(DIRECTORY include/${PROJECT_NAME}/

@@ -36,8 +36,6 @@
 *********************************************************************/
 #include <rotate_recovery/rotate_recovery.h>
 #include <pluginlib/class_list_macros.h>
-#include <nav_core/parameter_magic.h>
-#include <tf2/utils.h>
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Point.h>
@@ -55,7 +53,7 @@ RotateRecovery::RotateRecovery(): local_costmap_(NULL), initialized_(false), wor
 {
 }
 
-void RotateRecovery::initialize(std::string name, tf2_ros::Buffer*,
+void RotateRecovery::initialize(std::string name, tf::TransformListener*,
                                 costmap_2d::Costmap2DROS*, costmap_2d::Costmap2DROS* local_costmap)
 {
   if (!initialized_)
@@ -70,9 +68,9 @@ void RotateRecovery::initialize(std::string name, tf2_ros::Buffer*,
     private_nh.param("sim_granularity", sim_granularity_, 0.017);
     private_nh.param("frequency", frequency_, 20.0);
 
-    acc_lim_th_ = nav_core::loadParameterWithDeprecation(blp_nh, "acc_lim_theta", "acc_lim_th", 3.2);
-    max_rotational_vel_ = nav_core::loadParameterWithDeprecation(blp_nh, "max_vel_theta", "max_rotational_vel", 1.0);
-    min_rotational_vel_ = nav_core::loadParameterWithDeprecation(blp_nh, "min_in_place_vel_theta", "min_in_place_rotational_vel", 0.4);
+    blp_nh.param("acc_lim_th", acc_lim_th_, 3.2);
+    blp_nh.param("max_rotational_vel", max_rotational_vel_, 1.0);
+    blp_nh.param("min_in_place_rotational_vel", min_rotational_vel_, 0.4);
     blp_nh.param("yaw_goal_tolerance", tolerance_, 0.10);
 
     world_model_ = new base_local_planner::CostmapModel(*local_costmap_->getCostmap());
@@ -109,10 +107,10 @@ void RotateRecovery::runBehavior()
   ros::NodeHandle n;
   ros::Publisher vel_pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 10);
 
-  geometry_msgs::PoseStamped global_pose;
+  tf::Stamped<tf::Pose> global_pose;
   local_costmap_->getRobotPose(global_pose);
 
-  double current_angle = tf2::getYaw(global_pose.pose.orientation);
+  double current_angle = tf::getYaw(global_pose.getRotation());
   double start_angle = current_angle;
 
   bool got_180 = false;
@@ -123,7 +121,7 @@ void RotateRecovery::runBehavior()
   {
     // Update Current Angle
     local_costmap_->getRobotPose(global_pose);
-    current_angle = tf2::getYaw(global_pose.pose.orientation);
+    current_angle = tf::getYaw(global_pose.getRotation());
 
     // compute the distance left to rotate
     double dist_left;
@@ -144,7 +142,7 @@ void RotateRecovery::runBehavior()
       dist_left = std::fabs(angles::shortest_angular_distance(current_angle, start_angle));
     }
 
-    double x = global_pose.pose.position.x, y = global_pose.pose.position.y;
+    double x = global_pose.getOrigin().x(), y = global_pose.getOrigin().y();
 
     // check if that velocity is legal by forward simulating
     double sim_angle = 0.0;

@@ -38,7 +38,7 @@
 #define ROTATE_RECOVERY_ROTATE_RECOVERY_H
 #include <nav_core/recovery_behavior.h>
 #include <costmap_2d/costmap_2d_ros.h>
-#include <tf2_ros/buffer.h>
+#include <tf/transform_listener.h>
 #include <base_local_planner/costmap_model.h>
 #include <string>
 
@@ -63,7 +63,7 @@ public:
    * @param global_costmap (unused)
    * @param local_costmap A pointer to the local_costmap used by the navigation stack
    */
-  void initialize(std::string name, tf2_ros::Buffer*,
+  void initialize(std::string name, tf::TransformListener*,
                   costmap_2d::Costmap2DROS*, costmap_2d::Costmap2DROS* local_costmap);
 
   /**

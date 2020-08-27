@@ -2,140 +2,67 @@
 Changelog for package amcl
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.17.0 (2020-04-02)
+1.14.8 (2020-08-27)
 -------------------
-* Merge pull request `#982 <https://github.com/ros-planning/navigation/issues/982>`_ from ros-planning/noetic_prep
-  Noetic Migration
-* map is not subscriptable in python3
-* fix python3 errors in basic_localization.py
-* use upstream pykdl
-* Contributors: Michael Ferguson
+* (AMCL) add resample limit cache [Kinetic] (`#1013 <https://github.com/ros-planning/navigation/issues/1013>`_)
+* Contributors: Matthijs van der Burgh
 
-1.16.6 (2020-03-18)
+1.14.7 (2020-03-10)
 -------------------
 
-1.16.5 (2020-03-15)
+1.14.6 (2020-03-04)
 -------------------
-* [melodic] updated install for better portability. (`#973 <https://github.com/ros-planning/navigation/issues/973>`_)
-* Contributors: Sean Yen
-
-1.16.4 (2020-03-04)
--------------------
-* Implement selective resampling (`#921 <https://github.com/cobalt-robotics/navigation/issues/921>`_) (`#971 <https://github.com/cobalt-robotics/navigation/issues/971>`_)
-  Co-authored-by: Adi Vardi <adidasv111@gmail.com>
-* Add CLI option to trigger global localization before processing a bagfile (`#816 <https://github.com/cobalt-robotics/navigation/issues/816>`_) (`#970 <https://github.com/cobalt-robotics/navigation/issues/970>`_)
+* Implement selective resampling (`#921 <https://github.com/cobalt-robotics/navigation/issues/921>`_)
+* Add CLI option to trigger global localization before processing a bagfile (`#816 <https://github.com/cobalt-robotics/navigation/issues/816>`_)
   Co-authored-by: alain-m <alain@savioke.com>
-* Fix some reconfigure parameters not being applied [amcl]. (`#952 <https://github.com/cobalt-robotics/navigation/issues/952>`_)
-* amcl: include missing CMake functions to fix build (`#946 <https://github.com/cobalt-robotics/navigation/issues/946>`_)
-* Set proper limits for the z-weights [amcl]. (`#953 <https://github.com/cobalt-robotics/navigation/issues/953>`_)
-* Merge pull request `#965 <https://github.com/cobalt-robotics/navigation/issues/965>`_ from nlimpert/nlimpert/fix_missing_cmake_include
-  Add missing CMake include(CheckSymbolExists) for CMake >= 3.15
-* amcl: add missing CMake include(CheckSymbolExists)
-  Starting with CMake 3.15 an explicit include(CheckSymbolExists)
-  is required to use the check_symbol_exists macro.
-* Contributors: Ben Wolsieffer, Michael Ferguson, Nicolas Limpert, Patrick Chin
+* Contributors: Adi Vardi, Stephan
 
-1.16.3 (2019-11-15)
+1.14.5 (2019-11-15)
 -------------------
-* Merge branch 'melodic-devel' into layer_clear_area-melodic
-* Fix typo in amcl_laser model header (`#918 <https://github.com/ros-planning/navigation/issues/918>`_)
-* Merge pull request `#849 <https://github.com/ros-planning/navigation/issues/849>`_ from seanyen/amcl_windows_fix
-  [Windows][melodic] AMCL Windows build bring up.
-* revert unrelated changes.
-* AMCL windows build bring up.
-  * Add HAVE_UNISTD and HAVE_DRAND48 and portable_utils.hpp for better cross compiling.
-  * Variable length array is not supported in MSVC, conditionally disable it.
-  * Fix install location for shared lib and executables on Windows.
-  * Use isfinite for better cross compiling.
-* feat: AMCL Diagnostics (`#807 <https://github.com/ros-planning/navigation/issues/807>`_)
-  Diagnostic task that monitors the estimated standard deviation of the filter.
-  By: reinzor <reinzor@gmail.com>
 * fix typo for parameter beam_skip_error_threshold but bandaged for other users in AMCL (`#790 <https://github.com/ros-planning/navigation/issues/790>`_)
   * fix typo but bandage for other users
-* Merge pull request `#785 <https://github.com/ros-planning/navigation/issues/785>`_ from mintar/amcl_c++11
-  amcl: Add compile option C++11
-* amcl: Set C++ standard 11 if not set
-  This is required to build the melodic-devel branch of the navigation
-  stack on kinetic. Melodic sets CMAKE_CXX_STANDARD=14, but kinetic
-  doesn't set that variable at all.
-* Contributors: Hadi Tabatabaee, Martin Günther, Michael Ferguson, Rein Appeldoorn, Sean Yen, Steven Macenski
+* Contributors: Steven Macenski
 
-1.16.2 (2018-07-31)
+1.14.4 (2018-06-19)
 -------------------
-* Merge pull request `#773 <https://github.com/ros-planning/navigation/issues/773>`_ from ros-planning/packaging_fixes
-  packaging fixes
-* update amcl to have proper depends
-  * add geometry_msgs
-  * add tf2_msgs
-  * fix alphabetical order
-* Contributors: Michael Ferguson
-
-1.16.1 (2018-07-28)
--------------------
-* Merge pull request `#770 <https://github.com/ros-planning/navigation/issues/770>`_ from ros-planning/fix_debians
-  Fix debian builds (closes `#769 <https://github.com/ros-planning/navigation/issues/769>`_)
-* make AMCL depend on sensor_msgs
-  previously, amcl depended on TF, which depended on
-  sensor_msgs.
-* Contributors: Michael Ferguson
-
-1.16.0 (2018-07-25)
--------------------
-* Switch to TF2 `#755 <https://github.com/ros-planning/navigation/issues/755>`_
-* Merge pull request `#734 <https://github.com/ros-planning/navigation/issues/734>`_ from ros-planning/melodic_731
-  AMCL dynamic reconfigure: Extend parameter range (Forward port `#731 <https://github.com/ros-planning/navigation/issues/731>`_)
-* Merge pull request `#728 <https://github.com/ros-planning/navigation/issues/728>`_ from ros-planning/melodic_tf2_conversion
-  switch AMCL to use TF2
-* fix swapped odom1/4 in omni model, fixes `#499 <https://github.com/ros-planning/navigation/issues/499>`_
-* Merge pull request `#730 <https://github.com/ros-planning/navigation/issues/730>`_ from Glowcloud/melodic-devel
-  Fix for Potential Memory Leak  in AmclNode::reconfigureCB `#729 <https://github.com/ros-planning/navigation/issues/729>`_
-* Fix for Potential Memory Leak  in AmclNode::reconfigureCB
-* switch AMCL to use TF2
-* Merge pull request `#727 <https://github.com/ros-planning/navigation/issues/727>`_ from ros-planning/melodic_668
-  Update laser_model_type enum on AMCL.cfg (Melodic port of `#668 <https://github.com/ros-planning/navigation/issues/668>`_)
-* Update laser_model_type enum on AMCL.cfg
+* Merge pull request `#731 <https://github.com/ros-planning/navigation/issues/731>`_ from maracuya-robotics/kinetic/amcl-dynamic-reconfigure
+  AMCL dynamic reconfigure: Extend parameter range
+* In Addition to `#696 <https://github.com/ros-planning/navigation/issues/696>`_, which checks the input arguments, this extends the
+  allowed parameter range in dynamic reconfigure. The description for
+  "save_pose_rate" says "-1.0 to disable" but allowed only positive values
+  previously.
+  Also increase maximum value for laser_max_beams for high performance
+  systems.
+* Merge pull request `#668 <https://github.com/ros-planning/navigation/issues/668>`_ from B0gdar/kinetic-devel
+  Update laser_model_type enum on AMCL.cfg
   Adding likelihood_field_prob laser model option on AMCL.cfg to be able to control dynamic parameters with this laser sensor model.
-* Merge pull request `#723 <https://github.com/ros-planning/navigation/issues/723>`_ from moriarty/melodic-buildfarm-errors
-  Melodic buildfarm errors
-* include <memory> for std::shared_ptr
-* Merge pull request `#718 <https://github.com/ros-planning/navigation/issues/718>`_ from moriarty/tf2-buffer-ptr
-  [melodic] tf2_buffer\_ -> tf2_buffer_ptr\_
-* [melodic] tf2_buffer\_ -> tf2_buffer_ptr\_
-  Change required due to changes in upstream dependencies:
-  `ros/geometry#163 <https://github.com/ros/geometry/issues/163>`_: "Maintain & expose tf2 Buffer in shared_ptr for tf"
-  fixes `ros-planning/navigation#717 <https://github.com/ros-planning/navigation/issues/717>`_ (for compile errors at least.)
-* Contributors: Alexander Moriarty, Glowcloud, Martin Ganeff, Michael Ferguson, Miguel Cordero, Vincent Rabaud, maracuya-robotics
+* Contributors: Michael Ferguson, Miguel Cordero, maracuya-robotics
 
-1.15.2 (2018-03-22)
+1.14.3 (2018-03-16)
 -------------------
-* Fix minor typo (`#682 <https://github.com/ros-planning/navigation/issues/682>`_)
-  This typo caused some confusion because we were searching for a semicolon in our configuration.
-* Merge pull request `#677 <https://github.com/ros-planning/navigation/issues/677>`_ from ros-planning/lunar_634
+* Merge pull request `#678 <https://github.com/ros-planning/navigation/issues/678>`_ from SammysHP/patch-1
+  Fix minor typo
+* Merge pull request `#666 <https://github.com/ros-planning/navigation/issues/666>`_ from SteveMacenski/kinetic-devel
   removing recomputation of cluster stats causing assertion error (`#634 <https://github.com/ros-planning/navigation/issues/634>`_)
-* Merge pull request `#673 <https://github.com/ros-planning/navigation/issues/673>`_ from ros-planning/email_update_lunar
-  update maintainer email (lunar)
-* Remove Dead Code [Lunar] (`#646 <https://github.com/ros-planning/navigation/issues/646>`_)
-  * Clean up navfn
-  * Cleanup amcl
-* Merge pull request `#649 <https://github.com/ros-planning/navigation/issues/649>`_ from aaronhoy/lunar_add_ahoy
+* Merge pull request `#672 <https://github.com/ros-planning/navigation/issues/672>`_ from ros-planning/email_update_kinetic
+  update maintainer email (kinetic)
+* Merge pull request `#648 <https://github.com/ros-planning/navigation/issues/648>`_ from aaronhoy/kinetic_add_ahoy
   Add myself as a maintainer.
-* Contributors: Aaron Hoy, David V. Lu!!, Michael Ferguson, stevemacenski
+* Contributors: Aaron Hoy, Michael Ferguson, SammysHP, stevemacenski
 
-1.15.1 (2017-08-14)
+1.14.2 (2017-08-14)
 -------------------
 
-1.15.0 (2017-08-07)
+1.14.1 (2017-08-07)
 -------------------
 * Reference Issue `#592 <https://github.com/ros-planning/navigation/issues/592>`_ Added warning to AMCL when map is published on ... (`#604 <https://github.com/ros-planning/navigation/issues/604>`_)
-* rebase fixups
-* convert packages to format2
 * recompute cluster stat when force_publication
 * Fix CMakeLists + package.xmls (`#548 <https://github.com/ros-planning/navigation/issues/548>`_)
 * amcl: fix compilation with gcc v7
 * Added deps to amcl costmap_2d move_base (`#512 <https://github.com/ros-planning/navigation/issues/512>`_)
 * fix order of parameters (closes `#553 <https://github.com/ros-planning/navigation/issues/553>`_)
 * Fix potential string overflow and resource leak
-* Contributors: Dmitry Rozhkov, Laurent GEORGE, Martin Günther, Michael Ferguson, Mikael Arguedas, Peter Harliman Liem, mryellow, vik748
+* Contributors: Dmitry Rozhkov, Laurent GEORGE, Martin Günther, Michael Ferguson, Peter Harliman Liem, mryellow, vik748
 
 1.14.0 (2016-05-20)
 -------------------

@@ -2,46 +2,24 @@
 Changelog for package global_planner
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.17.0 (2020-04-02)
--------------------
-* Merge pull request `#982 <https://github.com/ros-planning/navigation/issues/982>`_ from ros-planning/noetic_prep
-  Noetic Migration
-* increase required cmake version
-* Contributors: Michael Ferguson
-
-1.16.6 (2020-03-18)
+1.14.8 (2020-08-27)
 -------------------
 
-1.16.5 (2020-03-15)
+1.14.7 (2020-03-10)
 -------------------
-* [melodic] updated install for better portability. (`#973 <https://github.com/ros-planning/navigation/issues/973>`_)
-* Contributors: Sean Yen
 
-1.16.4 (2020-03-04)
+1.14.6 (2020-03-04)
 -------------------
-* [Windows][melodic] Navigation (except for map_server and amcl) Windows build bring up (`#851 <https://github.com/cobalt-robotics/navigation/issues/851>`_)
-* parameter for enabling outlineMap added (`#926 <https://github.com/cobalt-robotics/navigation/issues/926>`_)
-* Contributors: Pavel Shumejko, Sean Yen
 
-1.16.3 (2019-11-15)
+1.14.5 (2019-11-15)
 -------------------
-* Remove unused visualize_potential (`#866 <https://github.com/ros-planning/navigation/issues/866>`_)
-* remove unused costmap_pub_frequency (`#858 <https://github.com/ros-planning/navigation/issues/858>`_)
+* Remove unused costmap_pub_freq (`#864 <https://github.com/ros-planning/navigation/issues/864>`_)
+* Merge pull request `#865 <https://github.com/ros-planning/navigation/issues/865>`_ from IronClimber/remove-visualize-potential
+  [kinetic] Remove unused visualize_potential\_
+* Remove unused visualize_potential\_
 * Fix `#845 <https://github.com/ros-planning/navigation/issues/845>`_ (`#846 <https://github.com/ros-planning/navigation/issues/846>`_)
-* Merge pull request `#831 <https://github.com/ros-planning/navigation/issues/831>`_ from ros-planning/feature/remove_slashes
-  [melodic] Remove leading slashes from default frame_id parameters
-* Remove leading slashes from default frame_id parameters
-* Contributors: David V. Lu, David V. Lu!!, Michael Ferguson, Stepan Kostusiev
-
-1.16.2 (2018-07-31)
--------------------
-
-1.16.1 (2018-07-28)
--------------------
-
-1.16.0 (2018-07-25)
--------------------
-* Switch to TF2 `#755 <https://github.com/ros-planning/navigation/issues/755>`_
+* Merge pull request `#821 <https://github.com/ros-planning/navigation/issues/821>`_ from ros-planning/fix739kinetic
+  PR `#739 <https://github.com/ros-planning/navigation/issues/739>`_ for Kinetic
 * feat(orientation_filter): Added additional orientation filter options (`#739 <https://github.com/ros-planning/navigation/issues/739>`_)
   * feat(orientation_filter): Added additional orientation filter options
   Enables plan references with different orientations for omni-base
@@ -58,42 +36,39 @@ Changelog for package global_planner
   by taking into account a larger window. The orientation of index point i
   will be calculated using the positions of i - window_size and i +
   window_size.
-* Contributors: Michael Ferguson, Rein Appeldoorn, Vincent Rabaud
+* Contributors: David V. Lu!!, Michael Ferguson, Rein Appeldoorn, Stepan Kostusiev
 
-1.15.2 (2018-03-22)
+1.14.4 (2018-06-19)
 -------------------
-* Merge pull request `#673 <https://github.com/ros-planning/navigation/issues/673>`_ from ros-planning/email_update_lunar
-  update maintainer email (lunar)
-* Merge pull request `#649 <https://github.com/ros-planning/navigation/issues/649>`_ from aaronhoy/lunar_add_ahoy
+
+1.14.3 (2018-03-16)
+-------------------
+* Merge pull request `#672 <https://github.com/ros-planning/navigation/issues/672>`_ from ros-planning/email_update_kinetic
+  update maintainer email (kinetic)
+* Merge pull request `#648 <https://github.com/ros-planning/navigation/issues/648>`_ from aaronhoy/kinetic_add_ahoy
   Add myself as a maintainer.
-* Rebase PRs from Indigo/Kinetic (`#637 <https://github.com/ros-planning/navigation/issues/637>`_)
-  * Respect planner_frequency intended behavior (`#622 <https://github.com/ros-planning/navigation/issues/622>`_)
+* Rebase PRs from Indigo (`#636 <https://github.com/ros-planning/navigation/issues/636>`_)
+  * Update gradient_path.cpp (`#576 <https://github.com/ros-planning/navigation/issues/576>`_)
+  * Update gradient_path.cpp
+  * Update navfn.cpp
   * Only do a getRobotPose when no start pose is given (`#628 <https://github.com/ros-planning/navigation/issues/628>`_)
   Omit the unnecessary call to getRobotPose when the start pose was
   already given, so that move_base can also generate a path in
   situations where getRobotPose would fail.
   This is actually to work around an issue of getRobotPose randomly
   failing.
-  * Update gradient_path.cpp (`#576 <https://github.com/ros-planning/navigation/issues/576>`_)
-  * Update gradient_path.cpp
-  * Update navfn.cpp
-  * update to use non deprecated pluginlib macro (`#630 <https://github.com/ros-planning/navigation/issues/630>`_)
-  * update to use non deprecated pluginlib macro
-  * multiline version as well
-  * Print SDL error on IMG_Load failure in server_map (`#631 <https://github.com/ros-planning/navigation/issues/631>`_)
 * Contributors: Aaron Hoy, David V. Lu!!, Michael Ferguson
 
-1.15.1 (2017-08-14)
+1.14.2 (2017-08-14)
 -------------------
 
-1.15.0 (2017-08-07)
+1.14.1 (2017-08-07)
 -------------------
-* convert packages to format2
 * Fix CMakeLists + package.xmls (`#548 <https://github.com/ros-planning/navigation/issues/548>`_)
 * Fix to increment 'cycle' in while loop (`#546 <https://github.com/ros-planning/navigation/issues/546>`_)
 * Fix to check index value before accessing to element of potential array (`#547 <https://github.com/ros-planning/navigation/issues/547>`_)
 * Set frame_id and stamp on Path message even if path is not found. (`#533 <https://github.com/ros-planning/navigation/issues/533>`_)
-* Contributors: Junya Hayashi, Martin Günther, Mikael Arguedas
+* Contributors: Junya Hayashi, Martin Günther
 
 1.14.0 (2016-05-20)
 -------------------
