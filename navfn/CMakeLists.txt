@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(navfn)
 
+include(CheckIncludeFile)
+
 find_package(catkin REQUIRED
     COMPONENTS
         cmake_modules
@@ -9,23 +11,19 @@ find_package(catkin REQUIRED
         message_generation
         nav_core
         nav_msgs
-        pcl_conversions
-        pcl_ros
         pluginlib
         rosconsole
         roscpp
-        tf
+        tf2_ros
+        sensor_msgs
         visualization_msgs
         )
 
 find_package(Eigen3 REQUIRED)
-find_package(PCL REQUIRED)
-remove_definitions(-DDISABLE_LIBUSB-1.0)
 include_directories(
     include
     ${catkin_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIRS}
-    ${PCL_INCLUDE_DIRS}
 )
 add_definitions(${EIGEN3_DEFINITIONS})
 
@@ -55,8 +53,14 @@ catkin_package(
         nav_msgs
         pluginlib
         roscpp
+        sensor_msgs
         visualization_msgs
 )
+
+check_include_file(sys/time.h HAVE_SYS_TIME_H)
+if (HAVE_SYS_TIME_H)
+  add_definitions(-DHAVE_SYS_TIME_H)
+endif (HAVE_SYS_TIME_H)
 
 add_library (navfn src/navfn.cpp src/navfn_ros.cpp)
 target_link_libraries(navfn
@@ -69,10 +73,14 @@ target_link_libraries(navfn_node
     navfn
     )
 
-install(TARGETS navfn navfn_node
+install(TARGETS navfn_node
+       RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+       )
+
+install(TARGETS navfn
        ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
        LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-       RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+       RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
        )
 
 install(DIRECTORY include/navfn/

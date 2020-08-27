@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(base_local_planner)
 
+include(CheckIncludeFile)
+
 find_package(catkin REQUIRED
         COMPONENTS
             angles
@@ -11,13 +13,14 @@ find_package(catkin REQUIRED
             message_generation
             nav_core
             nav_msgs
-            pcl_conversions
-            pcl_ros
             pluginlib
             roscpp
             rospy
+            sensor_msgs
             std_msgs
-            tf
+            tf2
+            tf2_geometry_msgs
+            tf2_ros
             voxel_grid
         )
 
@@ -27,13 +30,11 @@ find_package(Boost REQUIRED
         )
 
 find_package(Eigen3 REQUIRED)
-find_package(PCL REQUIRED)
 remove_definitions(-DDISABLE_LIBUSB-1.0)
 include_directories(
     include
     ${catkin_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIRS}
-    ${PCL_INCLUDE_DIRS}
 )
 add_definitions(${EIGEN3_DEFINITIONS})
 
@@ -71,9 +72,17 @@ catkin_package(
         nav_msgs
         pluginlib
         roscpp
+        sensor_msgs
         std_msgs
-        tf
+        tf2
+        tf2_ros
+        voxel_grid
 )
+
+check_include_file(sys/time.h HAVE_SYS_TIME_H)
+if (HAVE_SYS_TIME_H)
+  add_definitions(-DHAVE_SYS_TIME_H)
+endif (HAVE_SYS_TIME_H)
 
 #uncomment for profiling
 #set(ROS_COMPILE_FLAGS "-g -pg" ${ROS_COMPILE_FLAGS})
@@ -106,7 +115,6 @@ add_dependencies(base_local_planner base_local_planner_generate_messages_cpp)
 add_dependencies(base_local_planner nav_msgs_generate_messages_cpp)
 target_link_libraries(base_local_planner
     ${catkin_LIBRARIES}
-    ${PCL_LIBRARIES}
     ${Boost_LIBRARIES}
     ${Eigen_LIBRARIES}
     )
@@ -118,15 +126,16 @@ add_dependencies(trajectory_planner_ros ${${PROJECT_NAME}_EXPORTED_TARGETS} ${ca
 target_link_libraries(trajectory_planner_ros
      base_local_planner)
 
-add_executable(point_grid src/point_grid.cpp)
+add_executable(point_grid src/point_grid_node.cpp)
 add_dependencies(point_grid ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(point_grid ${catkin_LIBRARIES})
+target_link_libraries(point_grid ${catkin_LIBRARIES} base_local_planner)
 
 install(TARGETS
             base_local_planner
             trajectory_planner_ros
        ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
        LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+       RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
        )
 
 install(FILES blp_plugin.xml

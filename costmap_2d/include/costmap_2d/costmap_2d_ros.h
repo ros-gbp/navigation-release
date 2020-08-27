@@ -45,8 +45,10 @@
 #include <costmap_2d/footprint.h>
 #include <geometry_msgs/Polygon.h>
 #include <geometry_msgs/PolygonStamped.h>
+#include <geometry_msgs/PoseStamped.h>
 #include <dynamic_reconfigure/server.h>
-#include <pluginlib/class_loader.h>
+#include <pluginlib/class_loader.hpp>
+#include <tf2/LinearMath/Transform.h>
 
 class SuperValue : public XmlRpc::XmlRpcValue
 {
@@ -77,7 +79,7 @@ public:
    * @param name The name for this costmap
    * @param tf A reference to a TransformListener
    */
-  Costmap2DROS(std::string name, tf::TransformListener& tf);
+  Costmap2DROS(const std::string &name, tf2_ros::Buffer& tf);
   ~Costmap2DROS();
 
   /**
@@ -120,7 +122,19 @@ public:
    * @param global_pose Will be set to the pose of the robot in the global frame of the costmap
    * @return True if the pose was set successfully, false otherwise
    */
-  bool getRobotPose(tf::Stamped<tf::Pose>& global_pose) const;
+  bool getRobotPose(geometry_msgs::PoseStamped& global_pose) const;
+
+  /** @brief Returns costmap name */
+  std::string getName() const
+    {
+      return name_;
+    }
+
+  /** @brief Returns the delay in transform (tf) data that is tolerable in seconds */
+  double getTransformTolerance() const
+    {
+      return transform_tolerance_;
+    }
 
   /** @brief Return a pointer to the "master" costmap which receives updates from all the layers.
    *
@@ -216,7 +230,7 @@ public:
 protected:
   LayeredCostmap* layered_costmap_;
   std::string name_;
-  tf::TransformListener& tf_;  ///< @brief Used for transforming point clouds
+  tf2_ros::Buffer& tf_;  ///< @brief Used for transforming point clouds
   std::string global_frame_;  ///< @brief The global frame for the costmap
   std::string robot_base_frame_;  ///< @brief The frame_id of the robot base
   double transform_tolerance_;  ///< timeout before transform errors
@@ -229,7 +243,10 @@ private:
   void readFootprintFromConfig(const costmap_2d::Costmap2DConfig &new_config,
                                const costmap_2d::Costmap2DConfig &old_config);
 
-  void resetOldParameters(ros::NodeHandle& nh);
+  void loadOldParameters(ros::NodeHandle& nh);
+  void warnForOldParameters(ros::NodeHandle& nh);
+  void checkOldParam(ros::NodeHandle& nh, const std::string &param_name);
+  void copyParentParameters(const std::string& plugin_name, const std::string& plugin_type, ros::NodeHandle& nh);
   void reconfigureCB(costmap_2d::Costmap2DConfig &config, uint32_t level);
   void movementCB(const ros::TimerEvent &event);
   void mapUpdateLoop(double frequency);
@@ -240,7 +257,7 @@ private:
   ros::Time last_publish_;
   ros::Duration publish_cycle;
   pluginlib::ClassLoader<Layer> plugin_loader_;
-  tf::Stamped<tf::Pose> old_pose_;
+  geometry_msgs::PoseStamped old_pose_;
   Costmap2DPublisher* publisher_;
   dynamic_reconfigure::Server<costmap_2d::Costmap2DConfig> *dsrv_;
 
