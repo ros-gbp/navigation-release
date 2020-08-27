@@ -2,6 +2,11 @@
 Changelog for package move_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.17.1 (2020-08-27)
+-------------------
+* Fix `#933 <https://github.com/ros-planning/navigation/issues/933>`_ (`#988 <https://github.com/ros-planning/navigation/issues/988>`_)
+* Contributors: David V. Lu!!
+
 1.17.0 (2020-04-02)
 -------------------
 * Merge pull request `#982 <https://github.com/ros-planning/navigation/issues/982>`_ from ros-planning/noetic_prep
