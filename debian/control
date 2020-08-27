@@ -1,0 +1,13 @@
+Source: ros-melodic-dwa-local-planner
+Section: misc
+Priority: optional
+Maintainer: David V. Lu!! <davidvlu@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), libeigen3-dev, ros-melodic-angles, ros-melodic-base-local-planner, ros-melodic-catkin, ros-melodic-cmake-modules, ros-melodic-costmap-2d, ros-melodic-dynamic-reconfigure, ros-melodic-nav-core, ros-melodic-nav-msgs, ros-melodic-pluginlib, ros-melodic-roscpp, ros-melodic-sensor-msgs, ros-melodic-tf2, ros-melodic-tf2-geometry-msgs, ros-melodic-tf2-ros
+Homepage: http://wiki.ros.org/dwa_local_planner
+Standards-Version: 3.9.2
+
+Package: ros-melodic-dwa-local-planner
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libeigen3-dev, ros-melodic-base-local-planner, ros-melodic-costmap-2d, ros-melodic-dynamic-reconfigure, ros-melodic-nav-core, ros-melodic-nav-msgs, ros-melodic-pluginlib, ros-melodic-roscpp, ros-melodic-sensor-msgs, ros-melodic-tf2, ros-melodic-tf2-geometry-msgs, ros-melodic-tf2-ros
+Description: This package provides an implementation of the Dynamic Window Approach to local robot navigation on a plane.
+ Given a global plan to follow and a costmap, the local planner produces velocity commands to send to a mobile base. This package supports any robot who's footprint can be represented as a convex polygon or cicrle, and exposes its configuration as ROS parameters that can be set in a launch file. The parameters for this planner are also dynamically reconfigurable. This package's ROS wrapper adheres to the BaseLocalPlanner interface specified in the nav_core package.
