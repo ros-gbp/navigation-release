@@ -1,0 +1,174 @@
+ros-kinetic-dwa-local-planner (1.14.9-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 05 Jan 2021 05:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.14.8-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 27 Aug 2020 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.14.7-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Mar 2020 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.14.6-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Mar 2020 05:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.14.5-1xenial) xenial; urgency=high
+
+  * ROS_DEBUG prints incorrect gen_id & incorrect namespace for /latch_xy_goal_tolerance (#862 <https://github.com/ros-planning/navigation/issues/862>)
+    * gen_id also increments when the critic's scale is set to 0
+    * Moved the latch_xy_goal_tolerance parameter from global namespace to the planner's namespace.
+    * latch_xy_goal_tolerance  parameter is searched in node_handle's namespace as well as in global namespace, for people who relied on the old configuration
+  * Set footprint before in place rotation continuation (#829 <https://github.com/ros-planning/navigation/issues/829>)
+    * Make sure to call setFootprint() before an in-place rotation
+    * Change to const reference
+    * Remove footprint from findBestPath
+  * Contributors: Marcel Soler, Veera Ragav
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 15 Nov 2019 05:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.14.4-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 19 Jun 2018 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.14.3-1xenial) xenial; urgency=high
+
+  * Merge pull request #672 <https://github.com/ros-planning/navigation/issues/672> from ros-planning/email_update_kinetic
+    update maintainer email (kinetic)
+  * Merge pull request #648 <https://github.com/ros-planning/navigation/issues/648> from aaronhoy/kinetic_add_ahoy
+    Add myself as a maintainer.
+  * Contributors: Aaron Hoy, Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 16 Mar 2018 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.14.2-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 14 Aug 2017 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.14.1-1xenial) xenial; urgency=high
+
+  * Fix CMakeLists + package.xmls (#548 <https://github.com/ros-planning/navigation/issues/548>)
+  * Add cost function to prevent unnecessary spinning
+  * remove GCC warnings
+  * Contributors: Martin Günther, Morgan Quigley, Vincent Rabaud
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 07 Aug 2017 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.14.0-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 20 May 2016 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.13.1-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 29 Oct 2015 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.13.0-1xenial) xenial; urgency=high
+
+  * link only libraries found with find_package
+  * Contributors: Lukas Bulwahn
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 17 Mar 2015 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.12.0-1xenial) xenial; urgency=high
+
+  * update maintainer email
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Feb 2015 05:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.11.15-1xenial) xenial; urgency=high
+
+  * Add ARCHIVE_DESTINATION for static builds
+  * Contributors: Gary Servin
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 03 Feb 2015 05:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.11.14-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 05 Dec 2014 05:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.11.13-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 02 Oct 2014 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.11.12-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 01 Oct 2014 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.11.11-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 23 Jul 2014 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.11.10-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 25 Jun 2014 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.11.9-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Jun 2014 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.11.8-1xenial) xenial; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.11.7-1xenial) xenial; urgency=high
+
+  * update build to find eigen using cmake_modules
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.11.5-1xenial) xenial; urgency=high
+
+  * Fix for #5 <https://github.com/ros-planning/navigation/issues/5>
+  * Parameter to sum scores in DWA Planner
+  * Keep consistent allignment_cost scale
+    Use the configured alignment cost instead of resetting to 1.0. This
+    condition (farther from goal than forward_point_distance) is probably
+    met at the start of navigation, it seems this cost should be obeyed
+    until the robot gets close, then ignored completely.
+  * Cheat factor for end of DWA Plans
+  * Change maintainer from Hersh to Lu
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 30 Jan 2014 05:00:00 -0000
+
+ros-kinetic-dwa-local-planner (1.11.4-1xenial) xenial; urgency=high
+
+  * Package URL Updates
+  * Changed new Odom-Helper::initialize() function to setOdomTopic().
+  * some more corrections for the pointcloud object bug
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 27 Sep 2013 04:00:00 -0000
+
+
