@@ -1,0 +1,12 @@
+Source: ros-kinetic-rotate-recovery
+Section: misc
+Priority: optional
+Maintainer: David V. Lu!! <davidvlu@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), libeigen3-dev, ros-kinetic-base-local-planner, ros-kinetic-catkin, ros-kinetic-cmake-modules, ros-kinetic-costmap-2d, ros-kinetic-nav-core, ros-kinetic-pluginlib, ros-kinetic-roscpp, ros-kinetic-tf
+Homepage: http://wiki.ros.org/rotate_recovery
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-rotate-recovery
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libeigen3-dev, ros-kinetic-costmap-2d, ros-kinetic-nav-core, ros-kinetic-pluginlib, ros-kinetic-roscpp, ros-kinetic-tf
+Description: This package provides a recovery behavior for the navigation stack that attempts to clear space by performing a 360 degree rotation of the robot.
