@@ -1,0 +1,13 @@
+Source: ros-kinetic-base-local-planner
+Section: misc
+Priority: optional
+Maintainer: David V. Lu!! <davidvlu@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), libeigen3-dev, ros-kinetic-angles, ros-kinetic-catkin (>= 0.5.68), ros-kinetic-cmake-modules, ros-kinetic-costmap-2d, ros-kinetic-dynamic-reconfigure, ros-kinetic-geometry-msgs, ros-kinetic-message-generation, ros-kinetic-nav-core, ros-kinetic-nav-msgs, ros-kinetic-pcl-conversions, ros-kinetic-pcl-ros, ros-kinetic-pluginlib, ros-kinetic-roscpp, ros-kinetic-rospy, ros-kinetic-rosunit, ros-kinetic-std-msgs, ros-kinetic-tf, ros-kinetic-voxel-grid
+Homepage: http://wiki.ros.org/base_local_planner
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-base-local-planner
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libeigen3-dev, ros-kinetic-angles, ros-kinetic-costmap-2d, ros-kinetic-dynamic-reconfigure, ros-kinetic-geometry-msgs, ros-kinetic-message-runtime, ros-kinetic-nav-core, ros-kinetic-nav-msgs, ros-kinetic-pcl-ros, ros-kinetic-pluginlib, ros-kinetic-roscpp, ros-kinetic-rospy, ros-kinetic-std-msgs, ros-kinetic-tf, ros-kinetic-voxel-grid
+Description: This package provides implementations of the Trajectory Rollout and Dynamic Window approaches to local robot navigation on a plane.
+ Given a plan to follow and a costmap, the controller produces velocity commands to send to a mobile base. This package supports both holonomic and non-holonomic robots, any robot footprint that can be represented as a convex polygon or circle, and exposes its configuration as ROS parameters that can be set in a launch file. This package's ROS wrapper adheres to the BaseLocalPlanner interface specified in the nav_core package.
