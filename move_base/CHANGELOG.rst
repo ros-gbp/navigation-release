@@ -2,98 +2,67 @@
 Changelog for package move_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.17.1 (2020-08-27)
+1.14.9 (2021-01-05)
 -------------------
-* Fix `#933 <https://github.com/ros-planning/navigation/issues/933>`_ (`#988 <https://github.com/ros-planning/navigation/issues/988>`_)
+* Publish recovery behavior kinetic (`#1007 <https://github.com/ros-planning/navigation/issues/1007>`_)
+  * First prototype of publishing recovery status
+  custom message tells you where the behavior occured, the name, index,
+  and total number of behaviors.
+  * fix message field typos
+  * move_base crash when using default recovery behaviors (`#1071 <https://github.com/ros-planning/navigation/issues/1071>`_)
+  Co-authored-by: Peter Mitrano <mitranopeter@gmail.com>
+  Co-authored-by: mattp256 <11513260+mattp256@users.noreply.github.com>
 * Contributors: David V. Lu!!
 
-1.17.0 (2020-04-02)
--------------------
-* Merge pull request `#982 <https://github.com/ros-planning/navigation/issues/982>`_ from ros-planning/noetic_prep
-  Noetic Migration
-* increase required cmake version
-* move_base: Add options for make_plan service (`#981 <https://github.com/ros-planning/navigation/issues/981>`_)
-  Adds the following two parameters for the ~make_plan service:
-  1. make_plan_clear_costmap
-  Whether or not to clear the global costmap on make_plan service call.
-  2. make_plan_add_unreachable_goal
-  Whether or not to add the original goal to the path if it is unreachable in the make_plan service call.
-* Contributors: Michael Ferguson, nxdefiant
-
-1.16.6 (2020-03-18)
+1.14.8 (2020-08-27)
 -------------------
 
-1.16.5 (2020-03-15)
+1.14.7 (2020-03-10)
 -------------------
 
-1.16.4 (2020-03-04)
--------------------
-* [Windows][melodic] Navigation (except for map_server and amcl) Windows build bring up (`#851 <https://github.com/cobalt-robotics/navigation/issues/851>`_)
-* Contributors: Sean Yen
-
-1.16.3 (2019-11-15)
--------------------
-* Merge branch 'melodic-devel' into layer_clear_area-melodic
-* Added publishZeroVelocity() before starting planner (`#751 <https://github.com/ros-planning/navigation/issues/751>`_)
-  Edit for Issue `#750 <https://github.com/ros-planning/navigation/issues/750>`_
-* Merge pull request `#831 <https://github.com/ros-planning/navigation/issues/831>`_ from ros-planning/feature/remove_slashes
-  [melodic] Remove leading slashes from default frame_id parameters
-* Remove leading slashes from default frame_id parameters
-* Contributors: David V. Lu, Michael Ferguson, SUNIL SULANIA, Steven Macenski
-
-1.16.2 (2018-07-31)
+1.14.6 (2020-03-04)
 -------------------
 
-1.16.1 (2018-07-28)
+1.14.5 (2019-11-15)
 -------------------
 
-1.16.0 (2018-07-25)
+1.14.4 (2018-06-19)
 -------------------
-* Switch to TF2 `#755 <https://github.com/ros-planning/navigation/issues/755>`_
-* Merge pull request `#723 <https://github.com/ros-planning/navigation/issues/723>`_ from moriarty/melodic-buildfarm-errors
-  Melodic buildfarm errors
-* Merge pull request `#719 <https://github.com/ros-planning/navigation/issues/719>`_ from ros-planning/lunar_711
+* Merge pull request `#711 <https://github.com/ros-planning/navigation/issues/711>`_ from SteveMacenski/costmap_clearing_thread_lock
   adding mutex locks to costmap clearing service
-* Contributors: Alexander Moriarty, Michael Ferguson, Vincent Rabaud, stevemacenski
+* Contributors: Michael Ferguson, stevemacenski
 
-1.15.2 (2018-03-22)
+1.14.3 (2018-03-16)
 -------------------
-* Merge pull request `#673 <https://github.com/ros-planning/navigation/issues/673>`_ from ros-planning/email_update_lunar
-  update maintainer email (lunar)
-* Merge pull request `#649 <https://github.com/ros-planning/navigation/issues/649>`_ from aaronhoy/lunar_add_ahoy
-  Add myself as a maintainer.
-* Rebase PRs from Indigo/Kinetic (`#637 <https://github.com/ros-planning/navigation/issues/637>`_)
-  * Respect planner_frequency intended behavior (`#622 <https://github.com/ros-planning/navigation/issues/622>`_)
+* Merge pull request `#672 <https://github.com/ros-planning/navigation/issues/672>`_ from ros-planning/email_update_kinetic
+  update maintainer email (kinetic)
+* Merge pull request `#648 <https://github.com/ros-planning/navigation/issues/648>`_ from aaronhoy/kinetic_add_ahoy
+  Add myself as a maintainer. 
+* Rebase PRs from Indigo (`#636 
+<https://github.com/ros-planning/navigation/issues/636>`_)
+  * Update gradient_path.cpp (`#576 <https://github.com/ros-planning/navigation/issues/576>`_)
+  * Update gradient_path.cpp
+  * Update navfn.cpp
   * Only do a getRobotPose when no start pose is given (`#628 <https://github.com/ros-planning/navigation/issues/628>`_)
   Omit the unnecessary call to getRobotPose when the start pose was
   already given, so that move_base can also generate a path in
   situations where getRobotPose would fail.
   This is actually to work around an issue of getRobotPose randomly
   failing.
-  * Update gradient_path.cpp (`#576 <https://github.com/ros-planning/navigation/issues/576>`_)
-  * Update gradient_path.cpp
-  * Update navfn.cpp
-  * update to use non deprecated pluginlib macro (`#630 <https://github.com/ros-planning/navigation/issues/630>`_)
-  * update to use non deprecated pluginlib macro
-  * multiline version as well
-  * Print SDL error on IMG_Load failure in server_map (`#631 <https://github.com/ros-planning/navigation/issues/631>`_)
-* Contributors: Aaron Hoy, David V. Lu!!, Michael Ferguson
+* Respect planner_frequency intended behavior (`#622 <https://github.com/ros-planning/navigation/issues/622>`_)
+* Contributors: Aaron Hoy, David V. Lu!!, Jorge Santos Simón, Michael Ferguson
 
-1.15.1 (2017-08-14)
+1.14.2 (2017-08-14)
 -------------------
 
-1.15.0 (2017-08-07)
+1.14.1 (2017-08-07)
 -------------------
 * Add a max_planning_retries parameter to move_base [kinetic] (`#539 <https://github.com/ros-planning/navigation/issues/539>`_)
-* Fix for `#517 <https://github.com/ros-planning/navigation/issues/517>`_: create a getRobotPose method on move_base instead of using that on the costmaps
 * Fixed deadlock when changing global planner
-* rebase fixups
-* convert packages to format2
 * Fix CMakeLists + package.xmls (`#548 <https://github.com/ros-planning/navigation/issues/548>`_)
 * Added deps to amcl costmap_2d move_base (`#512 <https://github.com/ros-planning/navigation/issues/512>`_)
-* Fix CMake warnings
 * move_base: Add move_base_msgs to find_package.
-* Contributors: Jorge Santos, Jorge Santos Simón, Maarten de Vries, Martin Günther, Mikael Arguedas, Vincent Rabaud, mryellow, ne0
+* Contributors: Jorge Santos Simón, Maarten de Vries, Martin Günther, Vincent Rabaud, mryellow, ne0
 
 1.14.0 (2016-05-20)
 -------------------

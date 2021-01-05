@@ -12,6 +12,8 @@
 
 #include <Eigen/Core>
 
+#include <tf/transform_datatypes.h>
+
 #include <base_local_planner/local_planner_util.h>
 #include <base_local_planner/odometry_helper_ros.h>
 
@@ -19,15 +21,17 @@ namespace base_local_planner {
 
 class LatchedStopRotateController {
 public:
-  LatchedStopRotateController(const std::string& name = "");
+  LatchedStopRotateController();
   virtual ~LatchedStopRotateController();
 
+  void initialize(const std::string& name = "");
+  
   bool isPositionReached(LocalPlannerUtil* planner_util,
-                         const geometry_msgs::PoseStamped& global_pose);
+      tf::Stamped<tf::Pose> global_pose);
 
   bool isGoalReached(LocalPlannerUtil* planner_util,
       OdometryHelperRos& odom_helper,
-      const geometry_msgs::PoseStamped& global_pose);
+      tf::Stamped<tf::Pose> global_pose);
 
   void resetLatching() {
     xy_tolerance_latch_ = false;
@@ -40,8 +44,8 @@ public:
    * @param  cmd_vel The velocity commands to be filled
    * @return  True if a valid trajectory was found, false otherwise
    */
-  bool stopWithAccLimits(const geometry_msgs::PoseStamped& global_pose,
-      const geometry_msgs::PoseStamped& robot_vel,
+  bool stopWithAccLimits(const tf::Stamped<tf::Pose>& global_pose,
+      const tf::Stamped<tf::Pose>& robot_vel,
       geometry_msgs::Twist& cmd_vel,
       Eigen::Vector3f acc_lim,
       double sim_period,
@@ -57,8 +61,8 @@ public:
    * @param  cmd_vel The velocity commands to be filled
    * @return  True if a valid trajectory was found, false otherwise
    */
-  bool rotateToGoal(const geometry_msgs::PoseStamped& global_pose,
-      const geometry_msgs::PoseStamped& robot_vel,
+  bool rotateToGoal(const tf::Stamped<tf::Pose>& global_pose,
+      const tf::Stamped<tf::Pose>& robot_vel,
       double goal_th,
       geometry_msgs::Twist& cmd_vel,
       Eigen::Vector3f acc_lim,
@@ -73,7 +77,7 @@ public:
       double sim_period,
       LocalPlannerUtil* planner_util,
       OdometryHelperRos& odom_helper,
-      const geometry_msgs::PoseStamped& global_pose,
+      tf::Stamped<tf::Pose> global_pose,
       boost::function<bool (Eigen::Vector3f pos,
                             Eigen::Vector3f vel,
                             Eigen::Vector3f vel_samples)> obstacle_check);

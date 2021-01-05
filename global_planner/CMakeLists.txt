@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 2.8.3)
 project(global_planner)
 
 find_package(catkin REQUIRED
@@ -12,8 +12,7 @@ find_package(catkin REQUIRED
     nav_msgs
     pluginlib
     roscpp
-    tf2_geometry_msgs
-    tf2_ros
+    tf
 )
 
 generate_dynamic_reconfigure_options(
@@ -32,7 +31,7 @@ catkin_package(
     nav_msgs
     pluginlib
     roscpp
-    tf2_ros
+    tf
 )
 
 include_directories(
@@ -61,12 +60,9 @@ target_link_libraries(planner
   ${catkin_LIBRARIES}
 )
 
-install(TARGETS ${PROJECT_NAME}
+install(TARGETS ${PROJECT_NAME} planner
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})
-
-install(TARGETS planner
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 install(DIRECTORY include/${PROJECT_NAME}/

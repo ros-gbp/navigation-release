@@ -53,7 +53,7 @@
 #include <costmap_2d/costmap_2d.h>
 #include <nav_msgs/GetPlan.h>
 
-#include <pluginlib/class_loader.hpp>
+#include <pluginlib/class_loader.h>
 #include <std_srvs/Empty.h>
 
 #include <dynamic_reconfigure/server.h>
@@ -87,7 +87,7 @@ namespace move_base {
        * @param name The name of the action
        * @param tf A reference to a TransformListener
        */
-      MoveBase(tf2_ros::Buffer& tf);
+      MoveBase(tf::TransformListener& tf);
 
       /**
        * @brief  Destructor - Cleans up
@@ -97,9 +97,10 @@ namespace move_base {
       /**
        * @brief  Performs a control cycle
        * @param goal A reference to the goal to pursue
+       * @param global_plan A reference to the global plan being used
        * @return True if processing of the goal is done, false otherwise
        */
-      bool executeCycle(geometry_msgs::PoseStamped& goal);
+      bool executeCycle(geometry_msgs::PoseStamped& goal, std::vector<geometry_msgs::PoseStamped>& global_plan);
 
     private:
       /**
@@ -163,8 +164,6 @@ namespace move_base {
 
       bool isQuaternionValid(const geometry_msgs::Quaternion& q);
 
-      bool getRobotPose(geometry_msgs::PoseStamped& global_pose, costmap_2d::Costmap2DROS* costmap);
-
       double distance(const geometry_msgs::PoseStamped& p1, const geometry_msgs::PoseStamped& p2);
 
       geometry_msgs::PoseStamped goalToGlobalFrame(const geometry_msgs::PoseStamped& goal_pose_msg);
@@ -174,7 +173,7 @@ namespace move_base {
        */
       void wakePlanner(const ros::TimerEvent& event);
 
-      tf2_ros::Buffer& tf_;
+      tf::TransformListener& tf_;
 
       MoveBaseActionServer* as_;
 
@@ -185,19 +184,19 @@ namespace move_base {
       std::string robot_base_frame_, global_frame_;
 
       std::vector<boost::shared_ptr<nav_core::RecoveryBehavior> > recovery_behaviors_;
+      std::vector<std::string> recovery_behavior_names_;
       unsigned int recovery_index_;
 
-      geometry_msgs::PoseStamped global_pose_;
+      tf::Stamped<tf::Pose> global_pose_;
       double planner_frequency_, controller_frequency_, inscribed_radius_, circumscribed_radius_;
       double planner_patience_, controller_patience_;
       int32_t max_planning_retries_;
       uint32_t planning_retries_;
       double conservative_reset_dist_, clearing_radius_;
-      ros::Publisher current_goal_pub_, vel_pub_, action_goal_pub_;
+      ros::Publisher current_goal_pub_, vel_pub_, action_goal_pub_, recovery_status_pub_;
       ros::Subscriber goal_sub_;
       ros::ServiceServer make_plan_srv_, clear_costmaps_srv_;
       bool shutdown_costmaps_, clearing_rotation_allowed_, recovery_behavior_enabled_;
-      bool make_plan_clear_costmap_, make_plan_add_unreachable_goal_;
       double oscillation_timeout_, oscillation_distance_;
 
       MoveBaseState state_;

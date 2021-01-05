@@ -2,106 +2,57 @@
 Changelog for package base_local_planner
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.17.1 (2020-08-27)
+1.14.9 (2021-01-05)
 -------------------
-* occdist_scale should not be scaled by the costmap resolution as it doesn't multiply a value that includes a distance. (`#1000 <https://github.com/ros-planning/navigation/issues/1000>`_)
-* Contributors: wjwagner
 
-1.17.0 (2020-04-02)
+1.14.8 (2020-08-27)
 -------------------
-* Merge pull request `#982 <https://github.com/ros-planning/navigation/issues/982>`_ from ros-planning/noetic_prep
-  Noetic Migration
-* increase required cmake version
-* Contributors: Michael Ferguson
 
-1.16.6 (2020-03-18)
+1.14.7 (2020-03-10)
 -------------------
-* Fix Unknown CMake command check_include_file (navfn & base_local_planner) (`#975 <https://github.com/ros-planning/navigation/issues/975>`_)
-* Contributors: Sam Pfeiffer
 
-1.16.5 (2020-03-15)
+1.14.6 (2020-03-04)
 -------------------
-* [melodic] updated install for better portability. (`#973 <https://github.com/ros-planning/navigation/issues/973>`_)
-* Contributors: Sean Yen
 
-1.16.4 (2020-03-04)
+1.14.5 (2019-11-15)
 -------------------
-* Fixes gdist- and pdist_scale node paramter names (`#936 <https://github.com/cobalt-robotics/navigation/issues/936>`_)
-  Renames goal and path distance dynamic reconfigure parameter
-  names in the cfg file in order to actually make the parameters
-  used by the trajectory planner changeable.
-  Fixes `#935 <https://github.com/cobalt-robotics/navigation/issues/935>`_
-* don't include a main() function in base_local_planner library (`#969 <https://github.com/cobalt-robotics/navigation/issues/969>`_)
-* [Windows][melodic] Navigation (except for map_server and amcl) Windows build bring up (`#851 <https://github.com/cobalt-robotics/navigation/issues/851>`_)
-* Contributors: David Leins, Sean Yen, ipa-fez
-
-1.16.3 (2019-11-15)
--------------------
-* Merge branch 'melodic-devel' into layer_clear_area-melodic
+* ROS_DEBUG prints incorrect gen_id & incorrect namespace for /latch_xy_goal_tolerance (`#862 <https://github.com/ros-planning/navigation/issues/862>`_)
+  * gen_id also increments when the critic's scale is set to 0
+  * Moved the latch_xy_goal_tolerance parameter from global namespace to the planner's namespace.
+  * `latch_xy_goal_tolerance`  parameter is searched in node_handle's namespace as well as in global namespace, for people who relied on the old configuration
 * Provide different negative values for unknown and out-of-map costs (`#833 <https://github.com/ros-planning/navigation/issues/833>`_)
-* Merge pull request `#857 <https://github.com/ros-planning/navigation/issues/857>`_ from jspricke/add_include
-  Add missing header
-* Add missing header
 * [kinetic] Fix for adjusting plan resolution (`#819 <https://github.com/ros-planning/navigation/issues/819>`_)
   * Fix for adjusting plan resolution
   * Simpler math expression
-* Contributors: David V. Lu!!, Jochen Sprickerhof, Jorge Santos Simón, Michael Ferguson, Steven Macenski
+* Contributors: David V. Lu!!, Jorge Santos Simón, Veera Ragav
 
-1.16.2 (2018-07-31)
--------------------
-* Merge pull request `#773 <https://github.com/ros-planning/navigation/issues/773>`_ from ros-planning/packaging_fixes
-  packaging fixes
-* add explicit sensor_msgs, tf2 depends for base_local_planner
-* Contributors: Michael Ferguson
-
-1.16.1 (2018-07-28)
+1.14.4 (2018-06-19)
 -------------------
 
-1.16.0 (2018-07-25)
+1.14.3 (2018-03-16)
 -------------------
-* Remove PCL `#765 <https://github.com/ros-planning/navigation/issues/765>`_
-* Switch to TF2 `#755 <https://github.com/ros-planning/navigation/issues/755>`_
-* Fix trajectory obstacle scoring in dwa_local_planner.
-* Make trajectory scoring scales consistent.
-* unify parameter names between base_local_planner and dwa_local_planner
-  addresses parts of `#90 <https://github.com/ros-planning/navigation/issues/90>`_
-* fix param to min_in_place_vel_theta, closes `#487 <https://github.com/ros-planning/navigation/issues/487>`_
-* add const to getLocalPlane, fixes `#709 <https://github.com/ros-planning/navigation/issues/709>`_
-* Merge pull request `#732 <https://github.com/ros-planning/navigation/issues/732>`_ from marting87/small_typo_fixes
-  Small typo fixes in ftrajectory_planner_ros and robot_pose_ekf
-* Fixed typos for base_local_planner
-* Contributors: Alexander Moriarty, David V. Lu, Martin Ganeff, Michael Ferguson, Pavlo Kolomiiets, Rein Appeldoorn, Vincent Rabaud, moriarty
-
-1.15.2 (2018-03-22)
--------------------
-* Merge pull request `#673 <https://github.com/ros-planning/navigation/issues/673>`_ from ros-planning/email_update_lunar
-  update maintainer email (lunar)
-* CostmapModel: Make lineCost and pointCost public (`#658 <https://github.com/ros-planning/navigation/issues/658>`_)
+* Merge pull request `#672 <https://github.com/ros-planning/navigation/issues/672>`_ from ros-planning/email_update_kinetic
+  update maintainer email (kinetic)
+* CostmapModel: Make lineCost and pointCost public (`#660 <https://github.com/ros-planning/navigation/issues/660>`_)
   Make the methods `lineCost` and `pointCost` of the CostmapModel class
   public so they can be used outside of the class.
   Both methods are not changing the instance, so this should not cause any
   problems.  To emphasise their constness, add the actual `const` keyword.
-* Merge pull request `#649 <https://github.com/ros-planning/navigation/issues/649>`_ from aaronhoy/lunar_add_ahoy
+* Merge pull request `#648 <https://github.com/ros-planning/navigation/issues/648>`_ from aaronhoy/kinetic_add_ahoy
   Add myself as a maintainer.
 * Contributors: Aaron Hoy, Felix Widmaier, Michael Ferguson
 
-1.15.1 (2017-08-14)
+1.14.2 (2017-08-14)
 -------------------
 
-1.15.0 (2017-08-07)
+1.14.1 (2017-08-07)
 -------------------
-* set message_generation build and runtime dependency
-* convert packages to format2
-* cleaner logic, fixes `#156 <https://github.com/ros-planning/navigation/issues/156>`_
-* Merge pull request `#596 <https://github.com/ros-planning/navigation/issues/596>`_ from ros-planning/lunar_548
-* Add cost function to prevent unnecessary spinning
+* Merge pull request `#570 <https://github.com/ros-planning/navigation/issues/570>`_ from codebot/add_twirling_cost_function
 * Fix CMakeLists + package.xmls (`#548 <https://github.com/ros-planning/navigation/issues/548>`_)
-* add missing deps on libpcl
-* import only PCL common
-* pcl proagate -lQt5::Widgets flag so we need to find_package Qt5Widgets (`#578 <https://github.com/ros-planning/navigation/issues/578>`_)
+* Add cost function to prevent unnecessary spinning
 * make rostest in CMakeLists optional (`ros/rosdistro#3010 <https://github.com/ros/rosdistro/issues/3010>`_)
 * remove GCC warnings
-* Contributors: Lukas Bulwahn, Martin Günther, Michael Ferguson, Mikael Arguedas, Morgan Quigley, Vincent Rabaud, lengly
+* Contributors: Lukas Bulwahn, Martin Günther, Michael Ferguson, Morgan Quigley, Vincent Rabaud, lengly
 
 1.14.0 (2016-05-20)
 -------------------

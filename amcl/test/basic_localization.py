@@ -8,8 +8,8 @@ import unittest
 import rospy
 import rostest
 
-from tf2_msgs.msg import TFMessage
-import PyKDL
+from tf.msg import tfMessage
+from tf.transformations import euler_from_quaternion
 from std_srvs.srv import Empty
 
 
@@ -25,14 +25,14 @@ class TestBasicLocalization(unittest.TestCase):
             if t.header.frame_id == 'map':
                 self.tf = t.transform
                 (a_curr, a_diff) = self.compute_angle_diff()
-                print('Curr:\t %16.6f %16.6f %16.6f' % (self.tf.translation.x, self.tf.translation.y, a_curr))
-                print('Target:\t %16.6f %16.6f %16.6f' % (self.target_x, self.target_y, self.target_a))
-                print('Diff:\t %16.6f %16.6f %16.6f' % (
-                    abs(self.tf.translation.x - self.target_x), abs(self.tf.translation.y - self.target_y), a_diff))
+                print 'Curr:\t %16.6f %16.6f %16.6f' % (self.tf.translation.x, self.tf.translation.y, a_curr)
+                print 'Target:\t %16.6f %16.6f %16.6f' % (self.target_x, self.target_y, self.target_a)
+                print 'Diff:\t %16.6f %16.6f %16.6f' % (
+                    abs(self.tf.translation.x - self.target_x), abs(self.tf.translation.y - self.target_y), a_diff)
 
     def compute_angle_diff(self):
         rot = self.tf.rotation
-        a = PyKDL.Rotation.Quaternion(rot.x, rot.y, rot.z, rot.w).GetRPY()[2]
+        a = euler_from_quaternion([rot.x, rot.y, rot.z, rot.w])[2]
         d_a = self.target_a
 
         return (a, abs(fmod(a - d_a + 5*pi, 2*pi) - pi))
@@ -58,17 +58,17 @@ class TestBasicLocalization(unittest.TestCase):
             time.sleep(0.1)
         start_time = rospy.rostime.get_time()
         # TODO: This should be replace by a pytf listener
-        rospy.Subscriber('/tf', TFMessage, self.tf_cb)
+        rospy.Subscriber('/tf', tfMessage, self.tf_cb)
 
         while (rospy.rostime.get_time() - start_time) < target_time:
             #print 'Waiting for end time %.6f (current: %.6f)'%(target_time,(rospy.rostime.get_time() - start_time))
             time.sleep(0.1)
 
         (a_curr, a_diff) = self.compute_angle_diff()
-        print('Curr:\t %16.6f %16.6f %16.6f' % (self.tf.translation.x, self.tf.translation.y, a_curr))
-        print('Target:\t %16.6f %16.6f %16.6f' % (self.target_x, self.target_y, self.target_a))
-        print('Diff:\t %16.6f %16.6f %16.6f' % (
-            abs(self.tf.translation.x - self.target_x), abs(self.tf.translation.y - self.target_y), a_diff))
+        print 'Curr:\t %16.6f %16.6f %16.6f' % (self.tf.translation.x, self.tf.translation.y, a_curr)
+        print 'Target:\t %16.6f %16.6f %16.6f' % (self.target_x, self.target_y, self.target_a)
+        print 'Diff:\t %16.6f %16.6f %16.6f' % (
+            abs(self.tf.translation.x - self.target_x), abs(self.tf.translation.y - self.target_y), a_diff)
         self.assertNotEquals(self.tf, None)
         self.assertTrue(abs(self.tf.translation.x - self.target_x) <= tolerance_d)
         self.assertTrue(abs(self.tf.translation.y - self.target_y) <= tolerance_d)
