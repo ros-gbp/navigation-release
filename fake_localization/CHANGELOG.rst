@@ -2,6 +2,9 @@
 Changelog for package fake_localization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.14.9 (2021-01-05)
+-------------------
+
 1.14.8 (2020-08-27)
 -------------------
 * Fix `#796 <https://github.com/ros-planning/navigation/issues/796>`_ (`#1017 <https://github.com/ros-planning/navigation/issues/1017>`_)
