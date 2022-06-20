@@ -67,11 +67,13 @@ void GlobalPlanner::outlineMap(unsigned char* costarr, int nx, int ny, unsigned 
 }
 
 GlobalPlanner::GlobalPlanner() :
-        costmap_(NULL), initialized_(false), allow_unknown_(true) {
+        costmap_(NULL), initialized_(false), allow_unknown_(true),
+        p_calc_(NULL), planner_(NULL), path_maker_(NULL), orientation_filter_(NULL),
+        potential_array_(NULL) {
 }
 
 GlobalPlanner::GlobalPlanner(std::string name, costmap_2d::Costmap2D* costmap, std::string frame_id) :
-        costmap_(NULL), initialized_(false), allow_unknown_(true) {
+        GlobalPlanner() {
     //initialize the planner
     initialize(name, costmap, frame_id);
 }
@@ -307,7 +309,7 @@ bool GlobalPlanner::makePlan(const geometry_msgs::PoseStamped& start, const geom
             ROS_ERROR("Failed to get a plan from potential when a legal potential was found. This shouldn't happen.");
         }
     }else{
-        ROS_ERROR("Failed to get a plan.");
+        ROS_ERROR_THROTTLE(5.0, "Failed to get a plan.");
     }
 
     // add orientations if needed
@@ -315,7 +317,7 @@ bool GlobalPlanner::makePlan(const geometry_msgs::PoseStamped& start, const geom
 
     //publish the plan for visualization purposes
     publishPlan(plan);
-    delete potential_array_;
+    delete[] potential_array_;
     return !plan.empty();
 }
 
@@ -422,8 +424,13 @@ void GlobalPlanner::publishPotential(float* potential)
     for (unsigned int i = 0; i < grid.data.size(); i++) {
         if (potential_array_[i] >= POT_HIGH) {
             grid.data[i] = -1;
-        } else
-            grid.data[i] = potential_array_[i] * publish_scale_ / max;
+        } else {
+            if (fabs(max) < DBL_EPSILON) {
+                grid.data[i] = -1;
+            } else {
+                grid.data[i] = potential_array_[i] * publish_scale_ / max;
+            }
+        }
     }
     potential_pub_.publish(grid);
 }
