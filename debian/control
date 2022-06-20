@@ -1,0 +1,12 @@
+Source: ros-noetic-navigation
+Section: misc
+Priority: optional
+Maintainer: Michael Ferguson <mfergs7@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-catkin
+Homepage: http://wiki.ros.org/navigation
+Standards-Version: 3.9.2
+
+Package: ros-noetic-navigation
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-amcl, ros-noetic-base-local-planner, ros-noetic-carrot-planner, ros-noetic-clear-costmap-recovery, ros-noetic-costmap-2d, ros-noetic-dwa-local-planner, ros-noetic-fake-localization, ros-noetic-global-planner, ros-noetic-map-server, ros-noetic-move-base, ros-noetic-move-base-msgs, ros-noetic-move-slow-and-clear, ros-noetic-nav-core, ros-noetic-navfn, ros-noetic-rotate-recovery, ros-noetic-voxel-grid
+Description: A 2D navigation stack that takes in information from odometry, sensor streams, and a goal pose and outputs safe velocity commands that are sent to a mobile base.
