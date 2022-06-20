@@ -1,0 +1,13 @@
+Source: ros-noetic-carrot-planner
+Section: misc
+Priority: optional
+Maintainer: Aaron Hoy <ahoy@fetchrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), libeigen3-dev, ros-noetic-angles, ros-noetic-base-local-planner, ros-noetic-catkin, ros-noetic-costmap-2d, ros-noetic-nav-core, ros-noetic-pluginlib, ros-noetic-roscpp, ros-noetic-tf2, ros-noetic-tf2-geometry-msgs, ros-noetic-tf2-ros
+Homepage: http://wiki.ros.org/carrot_planner
+Standards-Version: 3.9.2
+
+Package: ros-noetic-carrot-planner
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libeigen3-dev, ros-noetic-angles, ros-noetic-base-local-planner, ros-noetic-costmap-2d, ros-noetic-nav-core, ros-noetic-pluginlib, ros-noetic-roscpp, ros-noetic-tf2, ros-noetic-tf2-ros
+Description: This planner attempts to find a legal place to put a carrot for the robot to follow.
+ It does this by moving back along the vector between the robot and the goal point.
