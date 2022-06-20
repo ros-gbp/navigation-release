@@ -1,0 +1,180 @@
+ros-noetic-nav-core (1.17.2-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 20 Jun 2022 07:00:00 -0000
+
+ros-noetic-nav-core (1.17.1-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 27 Aug 2020 07:00:00 -0000
+
+ros-noetic-nav-core (1.17.0-1focal) focal; urgency=high
+
+  * Merge pull request #982 <https://github.com/ros-planning/navigation/issues/982> from ros-planning/noetic_prep
+    Noetic Migration
+  * increase required cmake version
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 02 Apr 2020 07:00:00 -0000
+
+ros-noetic-nav-core (1.16.6-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 18 Mar 2020 07:00:00 -0000
+
+ros-noetic-nav-core (1.16.5-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Sun, 15 Mar 2020 07:00:00 -0000
+
+ros-noetic-nav-core (1.16.4-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Mar 2020 08:00:00 -0000
+
+ros-noetic-nav-core (1.16.3-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 15 Nov 2019 08:00:00 -0000
+
+ros-noetic-nav-core (1.16.2-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 31 Jul 2018 07:00:00 -0000
+
+ros-noetic-nav-core (1.16.1-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Sat, 28 Jul 2018 07:00:00 -0000
+
+ros-noetic-nav-core (1.16.0-1focal) focal; urgency=high
+
+  * Switch to TF2 #755 <https://github.com/ros-planning/navigation/issues/755>
+  * unify parameter names between base_local_planner and dwa_local_planner
+    addresses parts of #90 <https://github.com/ros-planning/navigation/issues/90>
+  * fix param names of RotateRecovery, closes #706 <https://github.com/ros-planning/navigation/issues/706>
+  * Contributors: David V. Lu, Michael Ferguson, Vincent Rabaud
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 25 Jul 2018 07:00:00 -0000
+
+ros-noetic-nav-core (1.15.2-1focal) focal; urgency=high
+
+  * Merge pull request #673 <https://github.com/ros-planning/navigation/issues/673> from ros-planning/email_update_lunar
+    update maintainer email (lunar)
+  * Merge pull request #649 <https://github.com/ros-planning/navigation/issues/649> from aaronhoy/lunar_add_ahoy
+    Add myself as a maintainer.
+  * Contributors: Aaron Hoy, Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 22 Mar 2018 07:00:00 -0000
+
+ros-noetic-nav-core (1.15.1-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 14 Aug 2017 07:00:00 -0000
+
+ros-noetic-nav-core (1.15.0-1focal) focal; urgency=high
+
+  * convert packages to format2
+  * makePlan overload must return.
+  * Contributors: Eric Tappan, Mikael Arguedas
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 07 Aug 2017 07:00:00 -0000
+
+ros-noetic-nav-core (1.14.0-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 20 May 2016 07:00:00 -0000
+
+ros-noetic-nav-core (1.13.1-1focal) focal; urgency=high
+
+  * Merge pull request #338 <https://github.com/ros-planning/navigation/issues/338> from mikeferguson/planner_review
+  * fix doxygen, couple style fixes
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 29 Oct 2015 07:00:00 -0000
+
+ros-noetic-nav-core (1.13.0-1focal) focal; urgency=high
+
+  * adding makePlan function with returned cost to base_global_planner
+  * Contributors: phil0stine
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 17 Mar 2015 07:00:00 -0000
+
+ros-noetic-nav-core (1.12.0-1focal) focal; urgency=high
+
+  * update maintainer email
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Feb 2015 08:00:00 -0000
+
+ros-noetic-nav-core (1.11.15-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 03 Feb 2015 08:00:00 -0000
+
+ros-noetic-nav-core (1.11.14-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 05 Dec 2014 08:00:00 -0000
+
+ros-noetic-nav-core (1.11.13-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 02 Oct 2014 07:00:00 -0000
+
+ros-noetic-nav-core (1.11.12-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 01 Oct 2014 07:00:00 -0000
+
+ros-noetic-nav-core (1.11.11-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 23 Jul 2014 07:00:00 -0000
+
+ros-noetic-nav-core (1.11.10-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 25 Jun 2014 07:00:00 -0000
+
+ros-noetic-nav-core (1.11.9-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Jun 2014 07:00:00 -0000
+
+ros-noetic-nav-core (1.11.8-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 07:00:00 -0000
+
+ros-noetic-nav-core (1.11.7-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 07:00:00 -0000
+
+ros-noetic-nav-core (1.11.4-1focal) focal; urgency=high
+
+  * Package URL Updates
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 27 Sep 2013 07:00:00 -0000
+
+
