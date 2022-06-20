@@ -45,8 +45,10 @@
 #include <costmap_2d/footprint.h>
 #include <geometry_msgs/Polygon.h>
 #include <geometry_msgs/PolygonStamped.h>
+#include <geometry_msgs/PoseStamped.h>
 #include <dynamic_reconfigure/server.h>
-#include <pluginlib/class_loader.h>
+#include <pluginlib/class_loader.hpp>
+#include <tf2/LinearMath/Transform.h>
 
 class SuperValue : public XmlRpc::XmlRpcValue
 {
@@ -77,7 +79,7 @@ public:
    * @param name The name for this costmap
    * @param tf A reference to a TransformListener
    */
-  Costmap2DROS(std::string name, tf::TransformListener& tf);
+  Costmap2DROS(const std::string &name, tf2_ros::Buffer& tf);
   ~Costmap2DROS();
 
   /**
@@ -110,9 +112,17 @@ public:
   void resetLayers();
 
   /** @brief Same as getLayeredCostmap()->isCurrent(). */
-  bool isCurrent()
+  bool isCurrent() const
     {
       return layered_costmap_->isCurrent();
+    }
+
+  /**
+   * @brief Is the costmap stopped
+   */
+  bool isStopped() const
+    {
+      return stopped_;
     }
 
   /**
@@ -120,12 +130,24 @@ public:
    * @param global_pose Will be set to the pose of the robot in the global frame of the costmap
    * @return True if the pose was set successfully, false otherwise
    */
-  bool getRobotPose(tf::Stamped<tf::Pose>& global_pose) const;
+  bool getRobotPose(geometry_msgs::PoseStamped& global_pose) const;
+
+  /** @brief Returns costmap name */
+  inline const std::string& getName() const noexcept
+    {
+      return name_;
+    }
+
+  /** @brief Returns the delay in transform (tf) data that is tolerable in seconds */
+  double getTransformTolerance() const
+    {
+      return transform_tolerance_;
+    }
 
   /** @brief Return a pointer to the "master" costmap which receives updates from all the layers.
    *
    * Same as calling getLayeredCostmap()->getCostmap(). */
-  Costmap2D* getCostmap()
+  Costmap2D* getCostmap() const
     {
       return layered_costmap_->getCostmap();
     }
@@ -134,7 +156,7 @@ public:
    * @brief  Returns the global frame of the costmap
    * @return The global frame of the costmap
    */
-  std::string getGlobalFrameID()
+  inline const std::string& getGlobalFrameID() const noexcept
     {
       return global_frame_;
     }
@@ -143,17 +165,17 @@ public:
    * @brief  Returns the local frame of the costmap
    * @return The local frame of the costmap
    */
-  std::string getBaseFrameID()
+  inline const std::string& getBaseFrameID() const noexcept
     {
       return robot_base_frame_;
     }
-  LayeredCostmap* getLayeredCostmap()
+  LayeredCostmap* getLayeredCostmap() const
     {
       return layered_costmap_;
     }
 
   /** @brief Returns the current padded footprint as a geometry_msgs::Polygon. */
-  geometry_msgs::Polygon getRobotFootprintPolygon()
+  geometry_msgs::Polygon getRobotFootprintPolygon() const
   {
     return costmap_2d::toPolygon(padded_footprint_);
   }
@@ -166,7 +188,7 @@ public:
    * The footprint initially comes from the rosparam "footprint" but
    * can be overwritten by dynamic reconfigure or by messages received
    * on the "footprint" topic. */
-  std::vector<geometry_msgs::Point> getRobotFootprint()
+  inline const std::vector<geometry_msgs::Point>& getRobotFootprint() const noexcept
   {
     return padded_footprint_;
   }
@@ -178,7 +200,7 @@ public:
    * The footprint initially comes from the rosparam "footprint" but
    * can be overwritten by dynamic reconfigure or by messages received
    * on the "footprint" topic. */
-  std::vector<geometry_msgs::Point> getUnpaddedRobotFootprint()
+  inline const std::vector<geometry_msgs::Point>& getUnpaddedRobotFootprint() const noexcept
   {
     return unpadded_footprint_;
   }
@@ -216,7 +238,7 @@ public:
 protected:
   LayeredCostmap* layered_costmap_;
   std::string name_;
-  tf::TransformListener& tf_;  ///< @brief Used for transforming point clouds
+  tf2_ros::Buffer& tf_;  ///< @brief Used for transforming point clouds
   std::string global_frame_;  ///< @brief The global frame for the costmap
   std::string robot_base_frame_;  ///< @brief The frame_id of the robot base
   double transform_tolerance_;  ///< timeout before transform errors
@@ -229,18 +251,19 @@ private:
   void readFootprintFromConfig(const costmap_2d::Costmap2DConfig &new_config,
                                const costmap_2d::Costmap2DConfig &old_config);
 
-  void resetOldParameters(ros::NodeHandle& nh);
+  void loadOldParameters(ros::NodeHandle& nh);
+  void warnForOldParameters(ros::NodeHandle& nh);
+  void checkOldParam(ros::NodeHandle& nh, const std::string &param_name);
+  void copyParentParameters(const std::string& plugin_name, const std::string& plugin_type, ros::NodeHandle& nh);
   void reconfigureCB(costmap_2d::Costmap2DConfig &config, uint32_t level);
   void movementCB(const ros::TimerEvent &event);
   void mapUpdateLoop(double frequency);
   bool map_update_thread_shutdown_;
-  bool stop_updates_, initialized_, stopped_, robot_stopped_;
+  bool stop_updates_, initialized_, stopped_;
   boost::thread* map_update_thread_;  ///< @brief A thread for updating the map
-  ros::Timer timer_;
   ros::Time last_publish_;
   ros::Duration publish_cycle;
   pluginlib::ClassLoader<Layer> plugin_loader_;
-  tf::Stamped<tf::Pose> old_pose_;
   Costmap2DPublisher* publisher_;
   dynamic_reconfigure::Server<costmap_2d::Costmap2DConfig> *dsrv_;
 

@@ -33,6 +33,7 @@
 #include "amcl/pf/pf.h"
 #include "amcl/pf/pf_pdf.h"
 #include "amcl/pf/pf_kdtree.h"
+#include "portable_utils.hpp"
 
 
 // Compute the required number of samples, given that there are k bins
@@ -131,7 +132,7 @@ void pf_free(pf_t *pf)
   return;
 }
 
-// Initialize the filter using a guassian
+// Initialize the filter using a gaussian
 void pf_init(pf_t *pf, pf_vector_t mean, pf_matrix_t cov)
 {
   int i;
@@ -661,13 +662,19 @@ void pf_cluster_stats(pf_t *pf, pf_sample_set_t *set)
     // Covariance in angular components; I think this is the correct
     // formula for circular statistics.
     cluster->cov.m[2][2] = -2 * log(sqrt(cluster->m[2] * cluster->m[2] +
-                                         cluster->m[3] * cluster->m[3]));
+                                         cluster->m[3] * cluster->m[3]) / cluster->weight);
 
     //printf("cluster %d %d %f (%f %f %f)\n", i, cluster->count, cluster->weight,
            //cluster->mean.v[0], cluster->mean.v[1], cluster->mean.v[2]);
     //pf_matrix_fprintf(cluster->cov, stdout, "%e");
   }
 
+  assert(fabs(weight) >= DBL_EPSILON);
+  if (fabs(weight) < DBL_EPSILON)
+  {
+    printf("ERROR : divide-by-zero exception : weight is zero\n");
+    return;
+  }
   // Compute overall filter stats
   set->mean.v[0] = m[0] / weight;
   set->mean.v[1] = m[1] / weight;
@@ -714,6 +721,13 @@ void pf_get_cep_stats(pf_t *pf, pf_vector_t *mean, double *var)
     my += sample->weight * sample->pose.v[1];
     mrr += sample->weight * sample->pose.v[0] * sample->pose.v[0];
     mrr += sample->weight * sample->pose.v[1] * sample->pose.v[1];
+  }
+
+  assert(fabs(mn) >= DBL_EPSILON);
+  if (fabs(mn) < DBL_EPSILON)
+  {
+    printf("ERROR : divide-by-zero exception : mn is zero\n");
+    return;
   }
 
   mean->v[0] = mx / mn;

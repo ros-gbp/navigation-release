@@ -2,73 +2,164 @@
 Changelog for package costmap_2d
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.14.9 (2021-01-05)
+1.17.2 (2022-06-20)
 -------------------
+* Removed unused variables in costmap_2d_ros (`#1126 <https://github.com/ros-planning/navigation/issues/1126>`_)
+  remove unused `robot_stopped\_`, `old_pose\_` and `timer\_`
+* Check if stamp of transformed pose is non-zero (`#1200 <https://github.com/ros-planning/navigation/issues/1200>`_)
+* fix crashes in AMCL (`#1152 <https://github.com/ros-planning/navigation/issues/1152>`_)
+  * fix: catch runtime_error from roscore
+  * ignore malformed message from laser, otherwise it will crash
+* The main function has to return an int value. (`#1101 <https://github.com/ros-planning/navigation/issues/1101>`_)
+* fix boundary point exclusion in convexFillCells (`#1095 <https://github.com/ros-planning/navigation/issues/1095>`_)
+* Fix deadlock when starting map with map-update-frequency set to zero (`#1072 <https://github.com/ros-planning/navigation/issues/1072>`_)
+  Co-authored-by: Dima Dorezyuk <dorezyuk@magazino.eu>
+* Increase scope of costmap mutex in publishCostmap to cover costmap calls (`#992 <https://github.com/ros-planning/navigation/issues/992>`_)
+* costmap_2d: remove useless and buggy testing helper function (`#1069 <https://github.com/ros-planning/navigation/issues/1069>`_) (`#1070 <https://github.com/ros-planning/navigation/issues/1070>`_)
+  Co-authored-by: JF Dalbosco <jean-francois.dalbosco@safrangroup.com>
+* Fix future robot pose by Costmap2D (`#1066 <https://github.com/ros-planning/navigation/issues/1066>`_)
+  Co-authored-by: Pavlo Kolomiiets <pavlo@blindnology.com>
+* use const-ref-getter for strings and vectors (`#1035 <https://github.com/ros-planning/navigation/issues/1035>`_)
+  Co-authored-by: Dima Dorezyuk <dorezyuk@magazino.eu>
+* move enabled-logic to the LayeredCostmap (`#1036 <https://github.com/ros-planning/navigation/issues/1036>`_)
+  Co-authored-by: Dima Dorezyuk <dorezyuk@magazino.eu>
+* cosmetic change (`#1055 <https://github.com/ros-planning/navigation/issues/1055>`_)
+* costmap_2d: Add missing package dependency to Eigen (`#1033 <https://github.com/ros-planning/navigation/issues/1033>`_)
+* Add invert_area_to_clear to clear costmap recovery behavior (`#1030 <https://github.com/ros-planning/navigation/issues/1030>`_)
+* Contributors: Atsushi Watanabe, ChristofDubs, Dhruv Maroo, Dima Dorezyuk, G.Doisy, Griswald Brooks, Noriaki Ando, Pavlo Kolomiiets, Yuki Furuta, Yukihiro Saito, easylyou, jdalbosc
 
-1.14.8 (2020-08-27)
+1.17.1 (2020-08-27)
 -------------------
+* add explicit call to ros::Timer::stop in the destructor (`#984 <https://github.com/ros-planning/navigation/issues/984>`_)
+  Co-authored-by: Dima Dorezyuk <dorezyuk@magazino.eu>
+* Exposing stopped\_ variable in costmap2D_ros with the getter function isStopped (`#913 <https://github.com/ros-planning/navigation/issues/913>`_)
+* use const for getter methods (`#948 <https://github.com/ros-planning/navigation/issues/948>`_)
+* Contributors: Dima Dorezyuk, Marco Bassa, Yuki Furuta
 
-1.14.7 (2020-03-10)
+1.17.0 (2020-04-02)
 -------------------
-* fix usage of size_locked, fixes `#959 <https://github.com/ros-planning/navigation/issues/959>`_ (`#966 <https://github.com/ros-planning/navigation/issues/966>`_) (`#972 <https://github.com/ros-planning/navigation/issues/972>`_)
+* Merge pull request `#982 <https://github.com/ros-planning/navigation/issues/982>`_ from ros-planning/noetic_prep
+  Noetic Migration
+* fix invalid memory access
+* attempt to get test to run
+* increase required cmake version
 * Contributors: Michael Ferguson
 
-1.14.6 (2020-03-04)
+1.16.6 (2020-03-18)
 -------------------
 
-1.14.5 (2019-11-15)
+1.16.5 (2020-03-15)
 -------------------
+* [melodic] updated install for better portability. (`#973 <https://github.com/ros-planning/navigation/issues/973>`_)
+* Contributors: Sean Yen
+
+1.16.4 (2020-03-04)
+-------------------
+* fix published footprint topic name (`#947 <https://github.com/cobalt-robotics/navigation/issues/947>`_)
+  The default name of the topic will be updated in noetic
+* fix usage of size_locked, fixes `#959 <https://github.com/cobalt-robotics/navigation/issues/959>`_ (`#966 <https://github.com/cobalt-robotics/navigation/issues/966>`_)
+* [Windows][melodic] Navigation (except for map_server and amcl) Windows build bring up (`#851 <https://github.com/cobalt-robotics/navigation/issues/851>`_)
+* Merge pull request `#957 <https://github.com/cobalt-robotics/navigation/issues/957>`_ from Blindnology/melodic-updateOrigin
+  Optimize costmap_2d::updateOrigin
+* Optimize costmap_2d::updateOrigin
+* Contributors: Michael Ferguson, Pavlo Kolomiiets, Sean Yen, Yuki Furuta
+
+1.16.3 (2019-11-15)
+-------------------
+* Merge pull request `#877 <https://github.com/ros-planning/navigation/issues/877>`_ from SteveMacenski/layer_clear_area-melodic
+  [melodic] moving clearing area method to costmap_layer so other applications can clear other types.
+* Merge branch 'melodic-devel' into layer_clear_area-melodic
+* Drop Parameter Magic (`#893 <https://github.com/ros-planning/navigation/issues/893>`_)
+* Fixes `#782 <https://github.com/ros-planning/navigation/issues/782>`_ (`#892 <https://github.com/ros-planning/navigation/issues/892>`_)
+* Costmap_2d plugin universal parameters and pre-hydro warnings (`#738 <https://github.com/ros-planning/navigation/issues/738>`_)
+  * Comment and description clarification
+  * Renamed resetOldParameters to loadOldParameters
+  * Upscaled pre-hydro parameter info message to warning and added costmap-name
+  * Warn user when static_map or map_type is set but not used while plugins are used
+  * Added function that copies parent parameters inside each layer (makes it possible to set a global inflation_radius)
+  * use parameter magic
 * Changed logic for when to resize layered costmap in static layer (`#792 <https://github.com/ros-planning/navigation/issues/792>`_)
   * Changed logic for when to resize layered costmap in static layer
   -Now the master layered costmap should no longer get resized when
   isSizeLocked returns true
   * Fixing format for if loop
-* [kinetic] Fix Bounds Bug (plus test) (`#871 <https://github.com/ros-planning/navigation/issues/871>`_)
+* clear area in layer for melodic
+* [kinetic] Fix Bounds Bug (plus test) (`#871 <https://github.com/ros-planning/navigation/issues/871>`_) (`#875 <https://github.com/ros-planning/navigation/issues/875>`_)
   * fix map bounds bug
   * Add test
-* Remove twice calculation of time_diff (`#863 <https://github.com/ros-planning/navigation/issues/863>`_)
-* Merge pull request `#841 <https://github.com/ros-planning/navigation/issues/841>`_ from DLu/feature/fix_install
-  [kinetic] Fix install
-* Fix install
-* Add additional linked libraries (`#800 <https://github.com/ros-planning/navigation/issues/800>`_)
-* Contributors: David V. Lu, David V. Lu!!, Michael Ferguson, Stepan Kostusiev
+* Fix install (`#855 <https://github.com/ros-planning/navigation/issues/855>`_)
+* Add additional linked libraries (`#803 <https://github.com/ros-planning/navigation/issues/803>`_)
+* Contributors: David V. Lu!!, Martin Ganeff, Michael Ferguson, Steven Macenski, stevemacenski
 
-1.14.4 (2018-06-19)
+1.16.2 (2018-07-31)
 -------------------
-* Merge pull request `#693 <https://github.com/ros-planning/navigation/issues/693>`_ from ros-planning/kinetic_691
+* Merge pull request `#773 <https://github.com/ros-planning/navigation/issues/773>`_ from ros-planning/packaging_fixes
+  packaging fixes
+* update costmap_2d cmake
+  * explicit dependency on tf2
+  * remove old PCL disable crap
+* Contributors: Michael Ferguson
+
+1.16.1 (2018-07-28)
+-------------------
+* Merge pull request `#770 <https://github.com/ros-planning/navigation/issues/770>`_ from ros-planning/fix_debians
+  Fix debian builds (closes `#769 <https://github.com/ros-planning/navigation/issues/769>`_)
+* add tf2_geometry_msgs depend to costmap_2d
+* Contributors: Michael Ferguson
+
+1.16.0 (2018-07-25)
+-------------------
+* Switch to TF2 `#755 <https://github.com/ros-planning/navigation/issues/755>`_
+* unify combination_method dynamic reconfig, closes `#402 <https://github.com/ros-planning/navigation/issues/402>`_
+* Merge pull request `#723 <https://github.com/ros-planning/navigation/issues/723>`_ from moriarty/melodic-buildfarm-errors
+  Melodic buildfarm errors
+* [costmap_2d/test] set empty transform to Identity
+* fix test: abs(unsigned int) is ambiguous
+  Instead, compare values and subtract smaller from larger to find
+  the dx and dy.
+* fixes pluginlib deprecated header warnings
+* Merge pull request `#694 <https://github.com/ros-planning/navigation/issues/694>`_ from ros-planning/lunar_691
   costmap variable init & cleanup (forward port of `#691 <https://github.com/ros-planning/navigation/issues/691>`_)
 * remove unused got_footprint\_
 * initialize all costmap variables
-* Merge pull request `#675 <https://github.com/ros-planning/navigation/issues/675>`_ from stereoboy/kinetic-devel_jylee
+* Merge pull request `#686 <https://github.com/ros-planning/navigation/issues/686>`_ from ros-planning/lunar_675
   Fixed race condition with costmaps in LayeredCostmap::resizeMap()
+* Fixed race condition with costmaps in LayeredCostmap::resizeMap()
   LayeredCostmap::updateMap() and LayeredCostmap::resizeMap() write to the master grid costmap.
   And these two functions can be called by different threads at the same time.
   One example of these cases is a race condition between subscriber callback thread
   dealing with dynamically-size-changing static_layer and periodical updateMap() calls from Costmap2DROS thread.
   Under the situation the master grid costmap is not thread-safe.
   LayeredCostmap::updateMap() already used the master grid costmap's lock.
-* Contributors: Jaeyoung Lee, Michael Ferguson
+* Contributors: Alexander Moriarty, David V. Lu, Jaeyoung Lee, Michael Ferguson, Vincent Rabaud
 
-1.14.3 (2018-03-16)
+1.15.2 (2018-03-22)
 -------------------
-* Merge pull request `#672 <https://github.com/ros-planning/navigation/issues/672>`_ from ros-planning/email_update_kinetic
-  update maintainer email (kinetic)
-* Fixes `#206 <https://github.com/ros-planning/navigation/issues/206>`_ for kinetic (`#663 <https://github.com/ros-planning/navigation/issues/663>`_)
-  * Fixes `#206 <https://github.com/ros-planning/navigation/issues/206>`_ for kinetic
-* fix 'enable' for static_layer with rolling window (`#659 <https://github.com/ros-planning/navigation/issues/659>`_)
-* Merge pull request `#648 <https://github.com/ros-planning/navigation/issues/648>`_ from aaronhoy/kinetic_add_ahoy
+* Merge pull request `#673 <https://github.com/ros-planning/navigation/issues/673>`_ from ros-planning/email_update_lunar
+  update maintainer email (lunar)
+* Merge pull request `#670 <https://github.com/ros-planning/navigation/issues/670>`_ from DLu/fix206_lunar
+  Fixes `#206 <https://github.com/ros-planning/navigation/issues/206>`_ for Lunar
+* fix 'enable' for static_layer with rolling window (`#659 <https://github.com/ros-planning/navigation/issues/659>`_) (`#665 <https://github.com/ros-planning/navigation/issues/665>`_)
+* Merge pull request `#649 <https://github.com/ros-planning/navigation/issues/649>`_ from aaronhoy/lunar_add_ahoy
   Add myself as a maintainer.
 * Contributors: Aaron Hoy, David V. Lu!!, Jannik Abbenseth, Michael Ferguson
 
-1.14.2 (2017-08-14)
+1.15.1 (2017-08-14)
 -------------------
 
-1.14.1 (2017-08-07)
+1.15.0 (2017-08-07)
 -------------------
 * Added parameter for allowing inflation in unknown cells (`#564 <https://github.com/ros-planning/navigation/issues/564>`_)
+* Inflation Layer protected members and virtual computeCost [ABI BREAKING]
+* Fix for `#517 <https://github.com/ros-planning/navigation/issues/517>`_: create a getRobotPose method on move_base instead of using that on the costmaps
 * don't update costs if inflation radius is zero
+* rebase fixups
+* convert packages to format2
 * Speedup (~60%) inflation layer update (`#525 <https://github.com/ros-planning/navigation/issues/525>`_)
 * Fix CMakeLists + package.xmls (`#548 <https://github.com/ros-planning/navigation/issues/548>`_)
+* add missing deps on libpcl
+* import only PCL common
+* pcl proagate -lQt5::Widgets flag so we need to find_package Qt5Widgets (`#578 <https://github.com/ros-planning/navigation/issues/578>`_)
 * Added deps to amcl costmap_2d move_base (`#512 <https://github.com/ros-planning/navigation/issues/512>`_)
 * remove GCC warnings
 * Fix CMake warnings
@@ -82,7 +173,7 @@ Changelog for package costmap_2d
 * Fix bug with inflation artifacts being left behind
 * Fixes issue with costmaps shearing
 * Made costmap publishing truly lazy
-* Contributors: Alex Henning, Hidde Wieringa, Jorge Santos Simón, Martin Günther, Michael Ferguson, Stephan Opfer, Vincent Rabaud, mryellow
+* Contributors: Alex Henning, Alexander Reimann, Hidde Wieringa, Jorge Santos, Jorge Santos Simón, Martin Günther, Michael Ferguson, Mikael Arguedas, Stephan Opfer, Vincent Rabaud, mryellow
 
 1.14.0 (2016-05-20)
 -------------------

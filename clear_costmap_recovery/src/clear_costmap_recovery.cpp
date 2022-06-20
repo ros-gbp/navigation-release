@@ -36,6 +36,7 @@
 *********************************************************************/
 #include <clear_costmap_recovery/clear_costmap_recovery.h>
 #include <pluginlib/class_list_macros.h>
+#include <boost/pointer_cast.hpp>
 #include <vector>
 
 //register this planner as a RecoveryBehavior plugin
@@ -44,10 +45,10 @@ PLUGINLIB_EXPORT_CLASS(clear_costmap_recovery::ClearCostmapRecovery, nav_core::R
 using costmap_2d::NO_INFORMATION;
 
 namespace clear_costmap_recovery {
-ClearCostmapRecovery::ClearCostmapRecovery(): global_costmap_(NULL), local_costmap_(NULL), 
-  tf_(NULL), initialized_(false) {} 
+ClearCostmapRecovery::ClearCostmapRecovery(): global_costmap_(NULL), local_costmap_(NULL),
+  tf_(NULL), initialized_(false) {}
 
-void ClearCostmapRecovery::initialize(std::string name, tf::TransformListener* tf,
+void ClearCostmapRecovery::initialize(std::string name, tf2_ros::Buffer* tf,
     costmap_2d::Costmap2DROS* global_costmap, costmap_2d::Costmap2DROS* local_costmap){
   if(!initialized_){
     name_ = name;
@@ -59,16 +60,24 @@ void ClearCostmapRecovery::initialize(std::string name, tf::TransformListener* t
     ros::NodeHandle private_nh("~/" + name_);
 
     private_nh.param("reset_distance", reset_distance_, 3.0);
-    
+    private_nh.param("invert_area_to_clear", invert_area_to_clear_, false);
+    private_nh.param("force_updating", force_updating_, false);
+    private_nh.param("affected_maps", affected_maps_, std::string("both"));
+    if (affected_maps_ != "local" && affected_maps_ != "global" && affected_maps_ != "both")
+    {
+      ROS_WARN("Wrong value for affected_maps parameter: '%s'; valid values are 'local', 'global' or 'both'; " \
+               "defaulting to 'both'", affected_maps_.c_str());
+      affected_maps_ = "both";
+    }
+
     std::vector<std::string> clearable_layers_default, clearable_layers;
     clearable_layers_default.push_back( std::string("obstacles") );
     private_nh.param("layer_names", clearable_layers, clearable_layers_default);
 
     for(unsigned i=0; i < clearable_layers.size(); i++) {
-        ROS_INFO("Recovery behavior will clear layer %s", clearable_layers[i].c_str());
+        ROS_INFO("Recovery behavior will clear layer '%s'", clearable_layers[i].c_str());
         clearable_layers_.insert(clearable_layers[i]);
     }
-
 
     initialized_ = true;
   }
@@ -87,23 +96,50 @@ void ClearCostmapRecovery::runBehavior(){
     ROS_ERROR("The costmaps passed to the ClearCostmapRecovery object cannot be NULL. Doing nothing.");
     return;
   }
-  ROS_WARN("Clearing costmap to unstuck robot (%fm).", reset_distance_);
-  clear(global_costmap_);
-  clear(local_costmap_);
+
+  if (!invert_area_to_clear_){
+    ROS_WARN("Clearing %s costmap%s outside a square (%.2fm) large centered on the robot.", affected_maps_.c_str(),
+           affected_maps_ == "both" ? "s" : "", reset_distance_);
+  }else {
+    ROS_WARN("Clearing %s costmap%s inside a square (%.2fm) large centered on the robot.", affected_maps_.c_str(),
+           affected_maps_ == "both" ? "s" : "", reset_distance_);
+  }
+
+  ros::WallTime t0 = ros::WallTime::now();
+  if (affected_maps_ == "global" || affected_maps_ == "both")
+  {
+    clear(global_costmap_);
+
+    if (force_updating_)
+      global_costmap_->updateMap();
+
+    ROS_DEBUG("Global costmap cleared in %fs", (ros::WallTime::now() - t0).toSec());
+  }
+
+  t0 = ros::WallTime::now();
+  if (affected_maps_ == "local" || affected_maps_ == "both")
+  {
+    clear(local_costmap_);
+
+    if (force_updating_)
+      local_costmap_->updateMap();
+
+    ROS_DEBUG("Local costmap cleared in %fs", (ros::WallTime::now() - t0).toSec());
+  }
 }
 
 void ClearCostmapRecovery::clear(costmap_2d::Costmap2DROS* costmap){
   std::vector<boost::shared_ptr<costmap_2d::Layer> >* plugins = costmap->getLayeredCostmap()->getPlugins();
 
-  tf::Stamped<tf::Pose> pose;
+  geometry_msgs::PoseStamped pose;
 
   if(!costmap->getRobotPose(pose)){
     ROS_ERROR("Cannot clear map because pose cannot be retrieved");
     return;
   }
 
-  double x = pose.getOrigin().x();
-  double y = pose.getOrigin().y();
+  double x = pose.pose.position.x;
+  double y = pose.pose.position.y;
 
   for (std::vector<boost::shared_ptr<costmap_2d::Layer> >::iterator pluginp = plugins->begin(); pluginp != plugins->end(); ++pluginp) {
     boost::shared_ptr<costmap_2d::Layer> plugin = *pluginp;
@@ -114,6 +150,13 @@ void ClearCostmapRecovery::clear(costmap_2d::Costmap2DROS* costmap){
     }
 
     if(clearable_layers_.count(name)!=0){
+
+      // check if the value is convertable
+      if(!dynamic_cast<costmap_2d::CostmapLayer*>(plugin.get())){
+        ROS_ERROR_STREAM("Layer " << name << " is not derived from costmap_2d::CostmapLayer");
+        continue;
+      }
+
       boost::shared_ptr<costmap_2d::CostmapLayer> costmap;
       costmap = boost::static_pointer_cast<costmap_2d::CostmapLayer>(plugin);
       clearMap(costmap, x, y);
@@ -122,10 +165,10 @@ void ClearCostmapRecovery::clear(costmap_2d::Costmap2DROS* costmap){
 }
 
 
-void ClearCostmapRecovery::clearMap(boost::shared_ptr<costmap_2d::CostmapLayer> costmap, 
+void ClearCostmapRecovery::clearMap(boost::shared_ptr<costmap_2d::CostmapLayer> costmap,
                                         double pose_x, double pose_y){
   boost::unique_lock<costmap_2d::Costmap2D::mutex_t> lock(*(costmap->getMutex()));
- 
+
   double start_point_x = pose_x - reset_distance_ / 2;
   double start_point_y = pose_y - reset_distance_ / 2;
   double end_point_x = start_point_x + reset_distance_;
@@ -135,19 +178,7 @@ void ClearCostmapRecovery::clearMap(boost::shared_ptr<costmap_2d::CostmapLayer> 
   costmap->worldToMapNoBounds(start_point_x, start_point_y, start_x, start_y);
   costmap->worldToMapNoBounds(end_point_x, end_point_y, end_x, end_y);
 
-  unsigned char* grid = costmap->getCharMap();
-  for(int x=0; x<(int)costmap->getSizeInCellsX(); x++){
-    bool xrange = x>start_x && x<end_x;
-                   
-    for(int y=0; y<(int)costmap->getSizeInCellsY(); y++){
-      if(xrange && y>start_y && y<end_y)
-        continue;
-      int index = costmap->getIndex(x,y);
-      if(grid[index]!=NO_INFORMATION){
-        grid[index] = NO_INFORMATION;
-      }
-    }
-  }
+  costmap->clearArea(start_x, start_y, end_x, end_y, invert_area_to_clear_);
 
   double ox = costmap->getOriginX(), oy = costmap->getOriginY();
   double width = costmap->getSizeInMetersX(), height = costmap->getSizeInMetersY();

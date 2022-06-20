@@ -40,8 +40,7 @@
 #include <costmap_2d/costmap_2d.h>
 #include <costmap_2d/layered_costmap.h>
 #include <string>
-#include <tf/tf.h>
-#include <tf/transform_listener.h>
+#include <tf2_ros/buffer.h>
 
 namespace costmap_2d
 {
@@ -52,7 +51,7 @@ class Layer
 public:
   Layer();
 
-  void initialize(LayeredCostmap* parent, std::string name, tf::TransformListener *tf);
+  void initialize(LayeredCostmap* parent, std::string name, tf2_ros::Buffer *tf);
 
   /**
    * @brief This is called by the LayeredCostmap to poll this plugin as to how
@@ -96,10 +95,28 @@ public:
     return current_;
   }
 
+  /**
+   * @brief getter if the current layer is enabled.
+   *
+   * The user may enable/disable a layer though dynamic reconfigure.
+   * Disabled layers won't receive calls to
+   * - Layer::updateCosts
+   * - Layer::updateBounds
+   * - Layer::isCurrent
+   * from the LayeredCostmap.
+   *
+   * Calls to Layer::activate, Layer::deactivate and Layer::reset won't be
+   * blocked.
+   */
+  inline bool isEnabled() const noexcept
+  {
+    return enabled_;
+  }
+
   /** @brief Implement this to make this layer match the size of the parent costmap. */
   virtual void matchSize() {}
 
-  std::string getName() const
+  inline const std::string& getName() const noexcept
   {
     return name_;
   }
@@ -121,9 +138,9 @@ protected:
 
   LayeredCostmap* layered_costmap_;
   bool current_;
-  bool enabled_;  ///< Currently this var is managed by subclasses. TODO: make this managed by this class and/or container class.
+  bool enabled_;
   std::string name_;
-  tf::TransformListener* tf_;
+  tf2_ros::Buffer *tf_;
 
 private:
   std::vector<geometry_msgs::Point> footprint_spec_;

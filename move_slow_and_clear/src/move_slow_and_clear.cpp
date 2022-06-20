@@ -50,7 +50,7 @@ namespace move_slow_and_clear
     delete remove_limit_thread_;
   }
 
-  void MoveSlowAndClear::initialize (std::string n, tf::TransformListener* tf,
+  void MoveSlowAndClear::initialize (std::string n, tf2_ros::Buffer* tf,
       costmap_2d::Costmap2DROS* global_costmap,
       costmap_2d::Costmap2DROS* local_costmap)
   {
@@ -62,6 +62,8 @@ namespace move_slow_and_clear
     private_nh_.param("limited_trans_speed", limited_trans_speed_, 0.25);
     private_nh_.param("limited_rot_speed", limited_rot_speed_, 0.45);
     private_nh_.param("limited_distance", limited_distance_, 0.3);
+    private_nh_.param("max_trans_param_name", max_trans_param_name_, std::string("max_trans_vel"));
+    private_nh_.param("max_rot_param_name", max_rot_param_name_, std::string("max_rot_vel"));
 
     std::string planner_namespace;
     private_nh_.param("planner_namespace", planner_namespace, std::string("DWAPlannerROS"));
@@ -78,7 +80,7 @@ namespace move_slow_and_clear
       return;
     }
     ROS_WARN("Move slow and clear recovery behavior started.");
-    tf::Stamped<tf::Pose> global_pose, local_pose;
+    geometry_msgs::PoseStamped global_pose, local_pose;
     global_costmap_->getRobotPose(global_pose);
     local_costmap_->getRobotPose(local_pose);
 
@@ -87,20 +89,20 @@ namespace move_slow_and_clear
 
     for(int i = -1; i <= 1; i+=2)
     {
-      pt.x = global_pose.getOrigin().x() + i * clearing_distance_;
-      pt.y = global_pose.getOrigin().y() + i * clearing_distance_;
+      pt.x = global_pose.pose.position.x + i * clearing_distance_;
+      pt.y = global_pose.pose.position.y + i * clearing_distance_;
       global_poly.push_back(pt);
 
-      pt.x = global_pose.getOrigin().x() + i * clearing_distance_;
-      pt.y = global_pose.getOrigin().y() + -1.0 * i * clearing_distance_;
+      pt.x = global_pose.pose.position.x + i * clearing_distance_;
+      pt.y = global_pose.pose.position.y + -1.0 * i * clearing_distance_;
       global_poly.push_back(pt);
 
-      pt.x = local_pose.getOrigin().x() + i * clearing_distance_;
-      pt.y = local_pose.getOrigin().y() + i * clearing_distance_;
+      pt.x = local_pose.pose.position.x + i * clearing_distance_;
+      pt.y = local_pose.pose.position.y + i * clearing_distance_;
       local_poly.push_back(pt);
 
-      pt.x = local_pose.getOrigin().x() + i * clearing_distance_;
-      pt.y = local_pose.getOrigin().y() + -1.0 * i * clearing_distance_;
+      pt.x = local_pose.pose.position.x + i * clearing_distance_;
+      pt.y = local_pose.pose.position.y + -1.0 * i * clearing_distance_;
       local_poly.push_back(pt);
     }
 
@@ -131,14 +133,14 @@ namespace move_slow_and_clear
     //get the old maximum speed for the robot... we'll want to set it back
     if(!limit_set_)
     {
-      if(!planner_nh_.getParam("max_trans_vel", old_trans_speed_))
+      if(!planner_nh_.getParam(max_trans_param_name_, old_trans_speed_))
       {
-        ROS_ERROR("The planner %s, does not have the parameter max_trans_vel", planner_nh_.getNamespace().c_str());
+        ROS_ERROR("The planner %s, does not have the parameter %s", planner_nh_.getNamespace().c_str(), max_trans_param_name_.c_str());
       }
 
-      if(!planner_nh_.getParam("max_rot_vel", old_rot_speed_))
+      if(!planner_nh_.getParam(max_rot_param_name_, old_rot_speed_))
       {
-        ROS_ERROR("The planner %s, does not have the parameter max_rot_vel", planner_nh_.getNamespace().c_str());
+        ROS_ERROR("The planner %s, does not have the parameter %s", planner_nh_.getNamespace().c_str(), max_rot_param_name_.c_str());
       }
     }
 
@@ -153,13 +155,13 @@ namespace move_slow_and_clear
 
   double MoveSlowAndClear::getSqDistance()
   {
-    tf::Stamped<tf::Pose> global_pose;
+    geometry_msgs::PoseStamped global_pose;
     global_costmap_->getRobotPose(global_pose);
-    double x1 = global_pose.getOrigin().x();
-    double y1 = global_pose.getOrigin().y();
+    double x1 = global_pose.pose.position.x;
+    double y1 = global_pose.pose.position.y;
 
-    double x2 = speed_limit_pose_.getOrigin().x();
-    double y2 = speed_limit_pose_.getOrigin().y();
+    double x2 = speed_limit_pose_.pose.position.x;
+    double y2 = speed_limit_pose_.pose.position.y;
 
     return (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
   }
@@ -194,7 +196,7 @@ namespace move_slow_and_clear
     {
       dynamic_reconfigure::Reconfigure vel_reconfigure;
       dynamic_reconfigure::DoubleParameter new_trans;
-      new_trans.name = "max_trans_vel";
+      new_trans.name = max_trans_param_name_;
       new_trans.value = trans_speed;
       vel_reconfigure.request.config.doubles.push_back(new_trans);
       try {
@@ -208,7 +210,7 @@ namespace move_slow_and_clear
     {
       dynamic_reconfigure::Reconfigure rot_reconfigure;
       dynamic_reconfigure::DoubleParameter new_rot;
-      new_rot.name = "max_rot_vel";
+      new_rot.name = max_rot_param_name_;
       new_rot.value = rot_speed;
       rot_reconfigure.request.config.doubles.push_back(new_rot);
       try {

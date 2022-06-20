@@ -138,7 +138,7 @@ loadMapFromFile(nav_msgs::GetMap::Response* resp,
 
 
       // If negate is true, we consider blacker pixels free, and whiter
-      // pixels free.  Otherwise, it's vice versa.
+      // pixels occupied.  Otherwise, it's vice versa.
       occ = (255 - color_avg) / 255.0;
 
       // Apply thresholds to RGB means to determine occupancy values for
@@ -152,7 +152,7 @@ loadMapFromFile(nav_msgs::GetMap::Response* resp,
         value = -1;
       else {
         double ratio = (occ - free_th) / (occ_th - free_th);
-        value = 99 * ratio;
+        value = 1 + 98 * ratio;
       }
 
       resp->map.data[MAP_IDX(resp->map.info.width,i,resp->map.info.height - j - 1)] = value;

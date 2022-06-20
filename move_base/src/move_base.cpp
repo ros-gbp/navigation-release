@@ -44,14 +44,16 @@
 
 #include <geometry_msgs/Twist.h>
 
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+
 namespace move_base {
 
-  MoveBase::MoveBase(tf::TransformListener& tf) :
+  MoveBase::MoveBase(tf2_ros::Buffer& tf) :
     tf_(tf),
     as_(NULL),
     planner_costmap_ros_(NULL), controller_costmap_ros_(NULL),
     bgp_loader_("nav_core", "nav_core::BaseGlobalPlanner"),
-    blp_loader_("nav_core", "nav_core::BaseLocalPlanner"), 
+    blp_loader_("nav_core", "nav_core::BaseLocalPlanner"),
     recovery_loader_("nav_core", "nav_core::RecoveryBehavior"),
     planner_plan_(NULL), latest_plan_(NULL), controller_plan_(NULL),
     runPlanner_(false), setup_(false), p_freq_change_(false), c_freq_change_(false), new_global_plan_(false) {
@@ -68,7 +70,7 @@ namespace move_base {
     private_nh.param("base_global_planner", global_planner, std::string("navfn/NavfnROS"));
     private_nh.param("base_local_planner", local_planner, std::string("base_local_planner/TrajectoryPlannerROS"));
     private_nh.param("global_costmap/robot_base_frame", robot_base_frame_, std::string("base_link"));
-    private_nh.param("global_costmap/global_frame", global_frame_, std::string("/map"));
+    private_nh.param("global_costmap/global_frame", global_frame_, std::string("map"));
     private_nh.param("planner_frequency", planner_frequency_, 0.0);
     private_nh.param("controller_frequency", controller_frequency_, 20.0);
     private_nh.param("planner_patience", planner_patience_, 5.0);
@@ -78,6 +80,10 @@ namespace move_base {
     private_nh.param("oscillation_timeout", oscillation_timeout_, 0.0);
     private_nh.param("oscillation_distance", oscillation_distance_, 0.5);
 
+    // parameters of make_plan service
+    private_nh.param("make_plan_clear_costmap", make_plan_clear_costmap_, true);
+    private_nh.param("make_plan_add_unreachable_goal", make_plan_add_unreachable_goal_, true);
+
     //set up plan triple buffer
     planner_plan_ = new std::vector<geometry_msgs::PoseStamped>();
     latest_plan_ = new std::vector<geometry_msgs::PoseStamped>();
@@ -86,7 +92,7 @@ namespace move_base {
     //set up the planner's thread
     planner_thread_ = new boost::thread(boost::bind(&MoveBase::planThread, this));
 
-    //for comanding the base
+    //for commanding the base
     vel_pub_ = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
     current_goal_pub_ = private_nh.advertise<geometry_msgs::PoseStamped>("current_goal", 0 );
 
@@ -260,6 +266,9 @@ namespace move_base {
       }
     }
 
+    make_plan_clear_costmap_ = config.make_plan_clear_costmap;
+    make_plan_add_unreachable_goal_ = config.make_plan_add_unreachable_goal;
+
     last_config_ = config;
   }
 
@@ -273,14 +282,14 @@ namespace move_base {
   }
 
   void MoveBase::clearCostmapWindows(double size_x, double size_y){
-    tf::Stamped<tf::Pose> global_pose;
+    geometry_msgs::PoseStamped global_pose;
 
     //clear the planner's costmap
-    planner_costmap_ros_->getRobotPose(global_pose);
+    getRobotPose(global_pose, planner_costmap_ros_);
 
     std::vector<geometry_msgs::Point> clear_poly;
-    double x = global_pose.getOrigin().x();
-    double y = global_pose.getOrigin().y();
+    double x = global_pose.pose.position.x;
+    double y = global_pose.pose.position.y;
     geometry_msgs::Point pt;
 
     pt.x = x - size_x / 2;
@@ -302,11 +311,11 @@ namespace move_base {
     planner_costmap_ros_->getCostmap()->setConvexPolygonCost(clear_poly, costmap_2d::FREE_SPACE);
 
     //clear the controller's costmap
-    controller_costmap_ros_->getRobotPose(global_pose);
+    getRobotPose(global_pose, controller_costmap_ros_);
 
     clear_poly.clear();
-    x = global_pose.getOrigin().x();
-    y = global_pose.getOrigin().y();
+    x = global_pose.pose.position.x;
+    y = global_pose.pose.position.y;
 
     pt.x = x - size_x / 2;
     pt.y = y - size_y / 2;
@@ -353,25 +362,27 @@ namespace move_base {
     //if the user does not specify a start pose, identified by an empty frame id, then use the robot's pose
     if(req.start.header.frame_id.empty())
     {
-        tf::Stamped<tf::Pose> global_pose;
-        if(!planner_costmap_ros_->getRobotPose(global_pose)){
+        geometry_msgs::PoseStamped global_pose;
+        if(!getRobotPose(global_pose, planner_costmap_ros_)){
           ROS_ERROR("move_base cannot make a plan for you because it could not get the start pose of the robot");
           return false;
         }
-        tf::poseStampedTFToMsg(global_pose, start);
+        start = global_pose;
     }
     else
     {
         start = req.start;
     }
 
-    //update the copy of the costmap the planner uses
-    clearCostmapWindows(2 * clearing_radius_, 2 * clearing_radius_);
+    if (make_plan_clear_costmap_) {
+      //update the copy of the costmap the planner uses
+      clearCostmapWindows(2 * clearing_radius_, 2 * clearing_radius_);
+    }
 
     //first try to make a plan to the exact desired goal
     std::vector<geometry_msgs::PoseStamped> global_plan;
     if(!planner_->makePlan(start, req.goal, global_plan) || global_plan.empty()){
-      ROS_DEBUG_NAMED("move_base","Failed to find a plan to exact goal of (%.2f, %.2f), searching for a feasible goal within tolerance", 
+      ROS_DEBUG_NAMED("move_base","Failed to find a plan to exact goal of (%.2f, %.2f), searching for a feasible goal within tolerance",
           req.goal.pose.position.x, req.goal.pose.position.y);
 
       //search outwards for a feasible goal within the specified tolerance
@@ -403,9 +414,11 @@ namespace move_base {
                 if(planner_->makePlan(start, p, global_plan)){
                   if(!global_plan.empty()){
 
-                    //adding the (unreachable) original goal to the end of the global plan, in case the local planner can get you there
-                    //(the reachable goal should have been added by the global planner)
-                    global_plan.push_back(req.goal);
+                    if (make_plan_add_unreachable_goal_) {
+                      //adding the (unreachable) original goal to the end of the global plan, in case the local planner can get you there
+                      //(the reachable goal should have been added by the global planner)
+                      global_plan.push_back(req.goal);
+                    }
 
                     found_legal = true;
                     ROS_DEBUG_NAMED("move_base", "Found a plan to point (%.2f, %.2f)", p.pose.position.x, p.pose.position.y);
@@ -471,14 +484,13 @@ namespace move_base {
     }
 
     //get the starting pose of the robot
-    tf::Stamped<tf::Pose> global_pose;
-    if(!planner_costmap_ros_->getRobotPose(global_pose)) {
+    geometry_msgs::PoseStamped global_pose;
+    if(!getRobotPose(global_pose, planner_costmap_ros_)) {
       ROS_WARN("Unable to get starting pose of robot, unable to create global plan");
       return false;
     }
 
-    geometry_msgs::PoseStamped start;
-    tf::poseStampedTFToMsg(global_pose, start);
+    const geometry_msgs::PoseStamped& start = global_pose;
 
     //if the planner fails or returns a zero length plan, planning failed
     if(!planner_->makePlan(start, goal, plan) || plan.empty()){
@@ -504,7 +516,7 @@ namespace move_base {
       return false;
     }
 
-    tf::Quaternion tf_q(q.x, q.y, q.z, q.w);
+    tf2::Quaternion tf_q(q.x, q.y, q.z, q.w);
 
     //next, we need to check if the length of the quaternion is close to zero
     if(tf_q.length2() < 1e-6){
@@ -515,7 +527,7 @@ namespace move_base {
     //next, we'll normalize the quaternion and check that it transforms the vertical vector correctly
     tf_q.normalize();
 
-    tf::Vector3 up(0, 0, 1);
+    tf2::Vector3 up(0, 0, 1);
 
     double dot = up.dot(up.rotate(tf_q.getAxis(), tf_q.getAngle()));
 
@@ -529,25 +541,23 @@ namespace move_base {
 
   geometry_msgs::PoseStamped MoveBase::goalToGlobalFrame(const geometry_msgs::PoseStamped& goal_pose_msg){
     std::string global_frame = planner_costmap_ros_->getGlobalFrameID();
-    tf::Stamped<tf::Pose> goal_pose, global_pose;
-    poseStampedMsgToTF(goal_pose_msg, goal_pose);
+    geometry_msgs::PoseStamped goal_pose, global_pose;
+    goal_pose = goal_pose_msg;
 
     //just get the latest available transform... for accuracy they should send
     //goals in the frame of the planner
-    goal_pose.stamp_ = ros::Time();
+    goal_pose.header.stamp = ros::Time();
 
     try{
-      tf_.transformPose(global_frame, goal_pose, global_pose);
+      tf_.transform(goal_pose_msg, global_pose, global_frame);
     }
-    catch(tf::TransformException& ex){
+    catch(tf2::TransformException& ex){
       ROS_WARN("Failed to transform the goal pose from %s into the %s frame: %s",
-          goal_pose.frame_id_.c_str(), global_frame.c_str(), ex.what());
+          goal_pose.header.frame_id.c_str(), global_frame.c_str(), ex.what());
       return goal_pose_msg;
     }
 
-    geometry_msgs::PoseStamped global_pose_msg;
-    tf::poseStampedTFToMsg(global_pose, global_pose_msg);
-    return global_pose_msg;
+    return global_pose;
   }
 
   void MoveBase::wakePlanner(const ros::TimerEvent& event)
@@ -647,6 +657,7 @@ namespace move_base {
 
     geometry_msgs::PoseStamped goal = goalToGlobalFrame(move_base_goal->target_pose);
 
+    publishZeroVelocity();
     //we have a goal so start the planner
     boost::unique_lock<boost::recursive_mutex> lock(planner_mutex_);
     planner_goal_ = goal;
@@ -655,7 +666,6 @@ namespace move_base {
     lock.unlock();
 
     current_goal_pub_.publish(goal);
-    std::vector<geometry_msgs::PoseStamped> global_plan;
 
     ros::Rate r(controller_frequency_);
     if(shutdown_costmaps_){
@@ -756,7 +766,7 @@ namespace move_base {
       ros::WallTime start = ros::WallTime::now();
 
       //the real work on pursuing a goal is done here
-      bool done = executeCycle(goal, global_plan);
+      bool done = executeCycle(goal);
 
       //if we're done, then we'll return from execute
       if(done)
@@ -789,16 +799,15 @@ namespace move_base {
     return hypot(p1.pose.position.x - p2.pose.position.x, p1.pose.position.y - p2.pose.position.y);
   }
 
-  bool MoveBase::executeCycle(geometry_msgs::PoseStamped& goal, std::vector<geometry_msgs::PoseStamped>& global_plan){
+  bool MoveBase::executeCycle(geometry_msgs::PoseStamped& goal){
     boost::recursive_mutex::scoped_lock ecl(configuration_mutex_);
     //we need to be able to publish velocity commands
     geometry_msgs::Twist cmd_vel;
 
     //update feedback to correspond to our curent position
-    tf::Stamped<tf::Pose> global_pose;
-    planner_costmap_ros_->getRobotPose(global_pose);
-    geometry_msgs::PoseStamped current_position;
-    tf::poseStampedTFToMsg(global_pose, current_position);
+    geometry_msgs::PoseStamped global_pose;
+    getRobotPose(global_pose, planner_costmap_ros_);
+    const geometry_msgs::PoseStamped& current_position = global_pose;
 
     //push the feedback out
     move_base_msgs::MoveBaseFeedback feedback;
@@ -811,7 +820,7 @@ namespace move_base {
       last_oscillation_reset_ = ros::Time::now();
       oscillation_pose_ = current_position;
 
-      //if our last recovery was caused by oscillation, we want to reset the recovery index 
+      //if our last recovery was caused by oscillation, we want to reset the recovery index
       if(recovery_trigger_ == OSCILLATION_R)
         recovery_index_ = 0;
     }
@@ -896,10 +905,10 @@ namespace move_base {
           state_ = CLEARING;
           recovery_trigger_ = OSCILLATION_R;
         }
-        
+
         {
          boost::unique_lock<costmap_2d::Costmap2D::mutex_t> lock(*(controller_costmap_ros_->getCostmap()->getMutex()));
-        
+
         if(tc_->computeVelocityCommands(cmd_vel)){
           ROS_DEBUG_NAMED( "move_base", "Got a valid command from the local planner: %.3lf, %.3lf, %.3lf",
                            cmd_vel.linear.x, cmd_vel.linear.y, cmd_vel.angular.z );
@@ -1021,7 +1030,7 @@ namespace move_base {
                     std::string name_i = behavior_list[i]["name"];
                     std::string name_j = behavior_list[j]["name"];
                     if(name_i == name_j){
-                      ROS_ERROR("A recovery behavior with the name %s already exists, this is not allowed. Using the default recovery behaviors instead.", 
+                      ROS_ERROR("A recovery behavior with the name %s already exists, this is not allowed. Using the default recovery behaviors instead.",
                           name_i.c_str());
                       return false;
                     }
@@ -1078,7 +1087,7 @@ namespace move_base {
         }
       }
       else{
-        ROS_ERROR("The recovery behavior specification must be a list, but is of XmlRpcType %d. We'll use the default recovery behaviors instead.", 
+        ROS_ERROR("The recovery behavior specification must be a list, but is of XmlRpcType %d. We'll use the default recovery behaviors instead.",
             behavior_list.getType());
         return false;
       }
@@ -1152,5 +1161,48 @@ namespace move_base {
       planner_costmap_ros_->stop();
       controller_costmap_ros_->stop();
     }
+  }
+
+  bool MoveBase::getRobotPose(geometry_msgs::PoseStamped& global_pose, costmap_2d::Costmap2DROS* costmap)
+  {
+    tf2::toMsg(tf2::Transform::getIdentity(), global_pose.pose);
+    geometry_msgs::PoseStamped robot_pose;
+    tf2::toMsg(tf2::Transform::getIdentity(), robot_pose.pose);
+    robot_pose.header.frame_id = robot_base_frame_;
+    robot_pose.header.stamp = ros::Time(); // latest available
+    ros::Time current_time = ros::Time::now();  // save time for checking tf delay later
+
+    // get robot pose on the given costmap frame
+    try
+    {
+      tf_.transform(robot_pose, global_pose, costmap->getGlobalFrameID());
+    }
+    catch (tf2::LookupException& ex)
+    {
+      ROS_ERROR_THROTTLE(1.0, "No Transform available Error looking up robot pose: %s\n", ex.what());
+      return false;
+    }
+    catch (tf2::ConnectivityException& ex)
+    {
+      ROS_ERROR_THROTTLE(1.0, "Connectivity Error looking up robot pose: %s\n", ex.what());
+      return false;
+    }
+    catch (tf2::ExtrapolationException& ex)
+    {
+      ROS_ERROR_THROTTLE(1.0, "Extrapolation Error looking up robot pose: %s\n", ex.what());
+      return false;
+    }
+
+    // check if global_pose time stamp is within costmap transform tolerance
+    if (!global_pose.header.stamp.isZero() &&
+        current_time.toSec() - global_pose.header.stamp.toSec() > costmap->getTransformTolerance())
+    {
+      ROS_WARN_THROTTLE(1.0, "Transform timeout for %s. " \
+                        "Current time: %.4f, pose stamp: %.4f, tolerance: %.4f", costmap->getName().c_str(),
+                        current_time.toSec(), global_pose.header.stamp.toSec(), costmap->getTransformTolerance());
+      return false;
+    }
+
+    return true;
   }
 };

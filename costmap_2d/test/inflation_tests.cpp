@@ -32,6 +32,7 @@
  * Test harness for InflationLayer for Costmap2D
  */
 #include <map>
+#include <cmath>
 
 #include <costmap_2d/costmap_2d.h>
 #include <costmap_2d/layered_costmap.h>
@@ -40,7 +41,6 @@
 #include <costmap_2d/observation_buffer.h>
 #include <costmap_2d/testing_helper.h>
 #include <gtest/gtest.h>
-#include <tf/transform_listener.h>
 
 using namespace costmap_2d;
 using geometry_msgs::Point;
@@ -85,8 +85,8 @@ void validatePointInflation(unsigned int mx, unsigned int my, Costmap2D* costmap
       if (!seen[cell.index_])
       {
         seen[cell.index_] = true;
-        unsigned int dx = abs(cell.x_ - cell.src_x_);
-        unsigned int dy = abs(cell.y_ - cell.src_y_);
+        unsigned int dx = (cell.x_ > cell.src_x_) ? cell.x_ - cell.src_x_ : cell.src_x_ - cell.x_;
+        unsigned int dy = (cell.y_ > cell.src_y_) ? cell.y_ - cell.src_y_ : cell.src_y_ - cell.y_;
         double dist = hypot(dx, dy);
 
         unsigned char expected_cost = ilayer->computeCost(dist);
@@ -95,6 +95,13 @@ void validatePointInflation(unsigned int mx, unsigned int my, Costmap2D* costmap
         if (dist > inflation_radius)
         {
           continue;
+        }
+
+        if (dist == bin->first)
+        {
+          // Adding to our current bin could cause a reallocation
+          // Which appears to cause the iterator to get messed up
+          dist += 0.001;
         }
 
         if (cell.x_ > 0)
@@ -128,7 +135,7 @@ void validatePointInflation(unsigned int mx, unsigned int my, Costmap2D* costmap
 }
 
 TEST(costmap, testAdjacentToObstacleCanStillMove){
-  tf::TransformListener tf;
+  tf2_ros::Buffer tf;
   LayeredCostmap layers("frame", false, false);
   layers.resizeMap(10, 10, 1, 0, 0);
 
@@ -154,7 +161,7 @@ TEST(costmap, testAdjacentToObstacleCanStillMove){
 }
 
 TEST(costmap, testInflationShouldNotCreateUnknowns){
-  tf::TransformListener tf;
+  tf2_ros::Buffer tf;
   LayeredCostmap layers("frame", false, false);
   layers.resizeMap(10, 10, 1, 0, 0);
 
@@ -179,7 +186,7 @@ TEST(costmap, testInflationShouldNotCreateUnknowns){
  * Test for the cost function correctness with a larger range and different values
  */
 TEST(costmap, testCostFunctionCorrectness){
-  tf::TransformListener tf;
+  tf2_ros::Buffer tf;
   LayeredCostmap layers("frame", false, false);
   layers.resizeMap(100, 100, 1, 0, 0);
 
@@ -247,7 +254,7 @@ TEST(costmap, testCostFunctionCorrectness){
  * test of the cost function being correctly applied.
  */
 TEST(costmap, testInflationOrderCorrectness){
-  tf::TransformListener tf;
+  tf2_ros::Buffer tf;
   LayeredCostmap layers("frame", false, false);
   layers.resizeMap(10, 10, 1, 0, 0);
 
@@ -276,7 +283,7 @@ TEST(costmap, testInflationOrderCorrectness){
  */
 TEST(costmap, testInflation){
 
-  tf::TransformListener tf;
+  tf2_ros::Buffer tf;
   LayeredCostmap layers("frame", false, false);
 
   // Footprint with inscribed radius = 2.1
@@ -340,7 +347,7 @@ TEST(costmap, testInflation){
  */
 TEST(costmap, testInflation2){
 
-  tf::TransformListener tf;
+  tf2_ros::Buffer tf;
   LayeredCostmap layers("frame", false, false);
 
   // Footprint with inscribed radius = 2.1
@@ -368,7 +375,7 @@ TEST(costmap, testInflation2){
  * Test inflation behavior, starting with an empty map
  */
 TEST(costmap, testInflation3){
-  tf::TransformListener tf;
+  tf2_ros::Buffer tf;
   LayeredCostmap layers("frame", false, false);
   layers.resizeMap(10, 10, 1, 0, 0);
 

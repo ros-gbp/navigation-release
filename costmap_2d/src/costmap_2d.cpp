@@ -264,6 +264,10 @@ void Costmap2D::updateOrigin(double new_origin_x, double new_origin_y)
   cell_ox = int((new_origin_x - origin_x_) / resolution_);
   cell_oy = int((new_origin_y - origin_y_) / resolution_);
 
+  // Nothing to update
+  if (cell_ox == 0 && cell_oy == 0)
+    return;
+
   // compute the associated world coordinates for the origin cell
   // because we want to keep things grid-aligned
   double new_grid_ox, new_grid_oy;
@@ -414,7 +418,7 @@ void Costmap2D::convexFillCells(const std::vector<MapLocation>& polygon, std::ve
 
     MapLocation pt;
     // loop though cells in the column
-    for (unsigned int y = min_pt.y; y < max_pt.y; ++y)
+    for (unsigned int y = min_pt.y; y <= max_pt.y; ++y)
     {
       pt.x = x;
       pt.y = y;

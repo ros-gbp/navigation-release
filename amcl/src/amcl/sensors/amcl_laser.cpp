@@ -31,7 +31,9 @@
 #include <math.h>
 #include <stdlib.h>
 #include <assert.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 
 #include "amcl/sensors/amcl_laser.h"
 
@@ -328,7 +330,7 @@ double AMCLLaser::LikelihoodFieldModelProb(AMCLLaserData *data, pf_sample_set_t*
 
   double max_dist_prob = exp(-(self->map->max_occ_dist * self->map->max_occ_dist) / z_hit_denom);
 
-  //Beam skipping - ignores beams for which a majoirty of particles do not agree with the map
+  //Beam skipping - ignores beams for which a majority of particles do not agree with the map
   //prevents correct particles from getting down weighted because of unexpected obstacles 
   //such as humans 
 
