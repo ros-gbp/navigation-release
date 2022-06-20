@@ -1,0 +1,12 @@
+Source: ros-noetic-fake-localization
+Section: misc
+Priority: optional
+Maintainer: David V. Lu!! <davidvlu@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-angles, ros-noetic-catkin, ros-noetic-geometry-msgs, ros-noetic-message-filters, ros-noetic-nav-msgs, ros-noetic-rosconsole, ros-noetic-roscpp, ros-noetic-rospy, ros-noetic-tf2-geometry-msgs, ros-noetic-tf2-ros
+Homepage: http://wiki.ros.org/fake_localization
+Standards-Version: 3.9.2
+
+Package: ros-noetic-fake-localization
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-geometry-msgs, ros-noetic-message-filters, ros-noetic-nav-msgs, ros-noetic-rosconsole, ros-noetic-roscpp, ros-noetic-rospy, ros-noetic-tf2-ros
+Description: A ROS node that simply forwards odometry information.
