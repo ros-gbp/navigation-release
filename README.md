@@ -1,3 +1,42 @@
+## navigation (noetic) - 1.17.2-1
+
+The packages in the `navigation` repository were released into the `noetic` distro by running `/usr/bin/bloom-release -r noetic -t noetic navigation` on `Mon, 20 Jun 2022 19:38:26 -0000`
+
+These packages were released:
+- `amcl`
+- `base_local_planner`
+- `carrot_planner`
+- `clear_costmap_recovery`
+- `costmap_2d`
+- `dwa_local_planner`
+- `fake_localization`
+- `global_planner`
+- `map_server`
+- `move_base`
+- `move_slow_and_clear`
+- `nav_core`
+- `navfn`
+- `navigation`
+- `rotate_recovery`
+- `voxel_grid`
+
+Version of package(s) in repository `navigation`:
+
+- upstream repository: https://github.com/ros-planning/navigation.git
+- release repository: https://github.com/ros-gbp/navigation-release.git
+- rosdistro version: `1.17.1-1`
+- old version: `1.17.1-1`
+- new version: `1.17.2-1`
+
+Versions of tools used:
+
+- bloom version: `0.11.1`
+- catkin_pkg version: `0.4.24`
+- rosdep version: `0.21.0`
+- rosdistro version: `0.8.3`
+- vcstools version: `0.1.42`
+
+
 ## navigation (kinetic) - 1.14.9-1
 
 The packages in the `navigation` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release -r kinetic -t kinetic navigation` on `Tue, 05 Jan 2021 18:06:31 -0000`
