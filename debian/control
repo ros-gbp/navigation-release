@@ -1,0 +1,12 @@
+Source: ros-noetic-global-planner
+Section: misc
+Priority: optional
+Maintainer: David V. Lu!! <davidvlu@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-angles, ros-noetic-catkin, ros-noetic-costmap-2d, ros-noetic-dynamic-reconfigure, ros-noetic-geometry-msgs, ros-noetic-nav-core, ros-noetic-nav-msgs, ros-noetic-navfn, ros-noetic-pluginlib, ros-noetic-roscpp, ros-noetic-tf2-geometry-msgs, ros-noetic-tf2-ros
+Homepage: http://wiki.ros.org/global_planner
+Standards-Version: 3.9.2
+
+Package: ros-noetic-global-planner
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-costmap-2d, ros-noetic-dynamic-reconfigure, ros-noetic-geometry-msgs, ros-noetic-nav-core, ros-noetic-nav-msgs, ros-noetic-navfn, ros-noetic-pluginlib, ros-noetic-roscpp, ros-noetic-tf2-ros
+Description: A path planner library and node.
