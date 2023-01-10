@@ -1,0 +1,201 @@
+ros-noetic-fake-localization (1.17.3-1buster) buster; urgency=high
+
+  * [ROS-O] various patches (#1225 <https://github.com/ros-planning/navigation/issues/1225>)
+    * do not specify obsolete c++11 standard
+    this breaks with current versions of log4cxx.
+    * update pluginlib include paths
+    the non-hpp headers have been deprecated since kinetic
+    * use lambdas in favor of boost::bind
+    Using boost's _1 as a global system is deprecated since C++11.
+    The ROS packages in Debian removed the implicit support for the global symbols,
+    so this code fails to compile there without the patch.
+  * Contributors: Michael Görner
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Jan 2023 05:00:00 -0000
+
+ros-noetic-fake-localization (1.17.2-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 20 Jun 2022 04:00:00 -0000
+
+ros-noetic-fake-localization (1.17.1-1buster) buster; urgency=high
+
+  * Fix #796 <https://github.com/ros-planning/navigation/issues/796> (#1017 <https://github.com/ros-planning/navigation/issues/1017>)
+    Use ros::Time(0) instead of timestamp in message so as not to fail to lookupTransform.
+  * fix isolated build, #995 <https://github.com/ros-planning/navigation/issues/995> (#997 <https://github.com/ros-planning/navigation/issues/997>)
+  * Contributors: Michael Ferguson, Ryo KOYAMA
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 27 Aug 2020 04:00:00 -0000
+
+ros-noetic-fake-localization (1.17.0-1buster) buster; urgency=high
+
+  * Merge pull request #982 <https://github.com/ros-planning/navigation/issues/982> from ros-planning/noetic_prep
+    Noetic Migration
+  * increase required cmake version
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 02 Apr 2020 04:00:00 -0000
+
+ros-noetic-fake-localization (1.16.6-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 18 Mar 2020 04:00:00 -0000
+
+ros-noetic-fake-localization (1.16.5-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Sun, 15 Mar 2020 04:00:00 -0000
+
+ros-noetic-fake-localization (1.16.4-1buster) buster; urgency=high
+
+  * remove signals dep (#945 <https://github.com/cobalt-robotics/navigation/issues/945>)
+    Boost > 1.7 has signals by default
+  * Contributors: acxz
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Mar 2020 05:00:00 -0000
+
+ros-noetic-fake-localization (1.16.3-1buster) buster; urgency=high
+
+  * Merge pull request #831 <https://github.com/ros-planning/navigation/issues/831> from ros-planning/feature/remove_slashes
+    [melodic] Remove leading slashes from default frame_id parameters
+  * Remove leading slashes from default frame_id parameters
+  * Fix for #805 <https://github.com/ros-planning/navigation/issues/805> (#813 <https://github.com/ros-planning/navigation/issues/813>)
+  * Contributors: David V. Lu, David V. Lu!!, Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 15 Nov 2019 05:00:00 -0000
+
+ros-noetic-fake-localization (1.16.2-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 31 Jul 2018 04:00:00 -0000
+
+ros-noetic-fake-localization (1.16.1-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Sat, 28 Jul 2018 04:00:00 -0000
+
+ros-noetic-fake-localization (1.16.0-1buster) buster; urgency=high
+
+  * Merge pull request #690 <https://github.com/ros-planning/navigation/issues/690> from ros-planning/lunar_609
+    switch fake_localization to tf2.
+  * Contributors: Michael Ferguson, Vincent Rabaud
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 25 Jul 2018 04:00:00 -0000
+
+ros-noetic-fake-localization (1.15.2-1buster) buster; urgency=high
+
+  * Merge pull request #673 <https://github.com/ros-planning/navigation/issues/673> from ros-planning/email_update_lunar
+    update maintainer email (lunar)
+  * Merge pull request #649 <https://github.com/ros-planning/navigation/issues/649> from aaronhoy/lunar_add_ahoy
+    Add myself as a maintainer.
+  * Contributors: Aaron Hoy, Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 22 Mar 2018 04:00:00 -0000
+
+ros-noetic-fake-localization (1.15.1-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 14 Aug 2017 04:00:00 -0000
+
+ros-noetic-fake-localization (1.15.0-1buster) buster; urgency=high
+
+  * convert packages to format2
+  * Fix CMakeLists + package.xmls (#548 <https://github.com/ros-planning/navigation/issues/548>)
+  * Contributors: Martin Günther, Mikael Arguedas, Vincent Rabaud
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 07 Aug 2017 04:00:00 -0000
+
+ros-noetic-fake-localization (1.14.0-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 20 May 2016 04:00:00 -0000
+
+ros-noetic-fake-localization (1.13.1-1buster) buster; urgency=high
+
+  * More tolerant initial pose transform lookup.
+  * Contributors: Daniel Stonier
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 29 Oct 2015 04:00:00 -0000
+
+ros-noetic-fake-localization (1.13.0-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 17 Mar 2015 04:00:00 -0000
+
+ros-noetic-fake-localization (1.12.0-1buster) buster; urgency=high
+
+  * update maintainer email
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Feb 2015 05:00:00 -0000
+
+ros-noetic-fake-localization (1.11.15-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 03 Feb 2015 05:00:00 -0000
+
+ros-noetic-fake-localization (1.11.14-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 05 Dec 2014 05:00:00 -0000
+
+ros-noetic-fake-localization (1.11.13-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 02 Oct 2014 04:00:00 -0000
+
+ros-noetic-fake-localization (1.11.12-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 01 Oct 2014 04:00:00 -0000
+
+ros-noetic-fake-localization (1.11.11-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 23 Jul 2014 04:00:00 -0000
+
+ros-noetic-fake-localization (1.11.10-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 25 Jun 2014 04:00:00 -0000
+
+ros-noetic-fake-localization (1.11.9-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Jun 2014 04:00:00 -0000
+
+ros-noetic-fake-localization (1.11.8-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-noetic-fake-localization (1.11.7-1buster) buster; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-noetic-fake-localization (1.11.4-1buster) buster; urgency=high
+
+  * Package URL Updates
+  * amcl_pose and particle cloud are now published latched
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 27 Sep 2013 04:00:00 -0000
+
+
