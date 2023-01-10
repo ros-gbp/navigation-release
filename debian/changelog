@@ -1,0 +1,219 @@
+ros-noetic-move-slow-and-clear (1.17.3-1focal) focal; urgency=high
+
+  * [ROS-O] various patches (#1225 <https://github.com/ros-planning/navigation/issues/1225>)
+    * do not specify obsolete c++11 standard
+    this breaks with current versions of log4cxx.
+    * update pluginlib include paths
+    the non-hpp headers have been deprecated since kinetic
+    * use lambdas in favor of boost::bind
+    Using boost's _1 as a global system is deprecated since C++11.
+    The ROS packages in Debian removed the implicit support for the global symbols,
+    so this code fails to compile there without the patch.
+  * Contributors: Michael Görner
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Jan 2023 05:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.17.2-1focal) focal; urgency=high
+
+  * [move_slow_and_clear] Add rosparam representing max vel rosparam name (#1039 <https://github.com/ros-planning/navigation/issues/1039>)
+  * Contributors: Naoya Yamaguchi
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 20 Jun 2022 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.17.1-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 27 Aug 2020 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.17.0-1focal) focal; urgency=high
+
+  * Merge pull request #982 <https://github.com/ros-planning/navigation/issues/982> from ros-planning/noetic_prep
+    Noetic Migration
+  * increase required cmake version
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 02 Apr 2020 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.16.6-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 18 Mar 2020 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.16.5-1focal) focal; urgency=high
+
+  * [melodic] updated install for better portability. (#973 <https://github.com/ros-planning/navigation/issues/973>)
+  * Contributors: Sean Yen
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Sun, 15 Mar 2020 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.16.4-1focal) focal; urgency=high
+
+  * [Windows][melodic] Navigation (except for map_server and amcl) Windows build bring up (#851 <https://github.com/cobalt-robotics/navigation/issues/851>)
+  * Merge pull request #955 <https://github.com/cobalt-robotics/navigation/issues/955> from isjfk/melodic-devel
+    Fix move_slow_and_clear sending obsolete params to dwa_local_planner
+  * Fix move_slow_and_clear sending obsolete params to dwa_local_planner
+    issue.
+  * Contributors: Jimmy F. Klarke, Michael Ferguson, Sean Yen
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Mar 2020 05:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.16.3-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 15 Nov 2019 05:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.16.2-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 31 Jul 2018 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.16.1-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Sat, 28 Jul 2018 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.16.0-1focal) focal; urgency=high
+
+  * Switch to TF2 #755 <https://github.com/ros-planning/navigation/issues/755>
+  * Contributors: Michael Ferguson, Vincent Rabaud
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 25 Jul 2018 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.15.2-1focal) focal; urgency=high
+
+  * Merge pull request #673 <https://github.com/ros-planning/navigation/issues/673> from ros-planning/email_update_lunar
+    update maintainer email (lunar)
+  * Merge pull request #649 <https://github.com/ros-planning/navigation/issues/649> from aaronhoy/lunar_add_ahoy
+    Add myself as a maintainer.
+  * Rebase PRs from Indigo/Kinetic (#637 <https://github.com/ros-planning/navigation/issues/637>)
+    * Respect planner_frequency intended behavior (#622 <https://github.com/ros-planning/navigation/issues/622>)
+    * Only do a getRobotPose when no start pose is given (#628 <https://github.com/ros-planning/navigation/issues/628>)
+    Omit the unnecessary call to getRobotPose when the start pose was
+    already given, so that move_base can also generate a path in
+    situations where getRobotPose would fail.
+    This is actually to work around an issue of getRobotPose randomly
+    failing.
+    * Update gradient_path.cpp (#576 <https://github.com/ros-planning/navigation/issues/576>)
+    * Update gradient_path.cpp
+    * Update navfn.cpp
+    * update to use non deprecated pluginlib macro (#630 <https://github.com/ros-planning/navigation/issues/630>)
+    * update to use non deprecated pluginlib macro
+    * multiline version as well
+    * Print SDL error on IMG_Load failure in server_map (#631 <https://github.com/ros-planning/navigation/issues/631>)
+  * Contributors: Aaron Hoy, David V. Lu!!, Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 22 Mar 2018 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.15.1-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 14 Aug 2017 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.15.0-1focal) focal; urgency=high
+
+  * convert packages to format2
+  * Fix CMakeLists + package.xmls (#548 <https://github.com/ros-planning/navigation/issues/548>)
+  * import only PCL common
+  * address gcc6 build error
+  * remove GCC warnings
+  * Fix CMake warnings
+  * Contributors: Lukas Bulwahn, Martin Günther, Mikael Arguedas, Vincent Rabaud
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 07 Aug 2017 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.14.0-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 20 May 2016 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.13.1-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 29 Oct 2015 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.13.0-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 17 Mar 2015 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.12.0-1focal) focal; urgency=high
+
+  * update maintainer email
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 04 Feb 2015 05:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.11.15-1focal) focal; urgency=high
+
+  * Add ARCHIVE_DESTINATION for static builds
+  * Contributors: Gary Servin
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 03 Feb 2015 05:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.11.14-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 05 Dec 2014 05:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.11.13-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Thu, 02 Oct 2014 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.11.12-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 01 Oct 2014 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.11.11-1focal) focal; urgency=high
+
+  * Use service call, rather than system call, to call dynamic
+    reconfigure when decreasing move_base speed.
+  * Contributors: Ryohei Ueda
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 23 Jul 2014 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.11.10-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 25 Jun 2014 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.11.9-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 10 Jun 2014 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.11.8-1focal) focal; urgency=high
+
+
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.11.7-1focal) focal; urgency=high
+
+  * update build to find eigen using cmake_modules
+  * Contributors: Michael Ferguson
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Wed, 21 May 2014 04:00:00 -0000
+
+ros-noetic-move-slow-and-clear (1.11.4-1focal) focal; urgency=high
+
+  * Package URL Updates
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Fri, 27 Sep 2013 04:00:00 -0000
+
+
