@@ -1,0 +1,13 @@
+Source: ros-noetic-navfn
+Section: misc
+Priority: optional
+Maintainer: David V. Lu!! <davidvlu@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), libnetpbm10-dev, ros-noetic-catkin (>= 0.5.68), ros-noetic-cmake-modules, ros-noetic-costmap-2d, ros-noetic-geometry-msgs, ros-noetic-message-generation, ros-noetic-nav-core, ros-noetic-nav-msgs, ros-noetic-pluginlib, ros-noetic-rosconsole, ros-noetic-roscpp, ros-noetic-rosunit <!nocheck>, ros-noetic-sensor-msgs, ros-noetic-tf2-ros, ros-noetic-visualization-msgs
+Homepage: http://wiki.ros.org/navfn
+Standards-Version: 3.9.2
+
+Package: ros-noetic-navfn
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-costmap-2d, ros-noetic-geometry-msgs, ros-noetic-message-runtime, ros-noetic-nav-core, ros-noetic-nav-msgs, ros-noetic-pluginlib, ros-noetic-rosconsole, ros-noetic-roscpp, ros-noetic-sensor-msgs, ros-noetic-tf2-ros, ros-noetic-visualization-msgs
+Description: navfn provides a fast interpolated navigation function that can be used to create plans for a mobile base.
+ The planner assumes a circular robot and operates on a costmap to find a minimum cost plan from a start point to an end point in a grid. The navigation function is computed with Dijkstra's algorithm, but support for an A* heuristic may also be added in the near future. navfn also provides a ROS wrapper for the navfn planner that adheres to the nav_core::BaseGlobalPlanner interface specified in nav_core.
